@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MART WEB</title>
+    <title>MART HUB</title>
     <script src="https://unpkg.com/@rive-app/canvas"></script>
     <style>
         body, html {
@@ -54,13 +54,18 @@
             inputs.forEach(input => {
                 console.log(`Input detectado: ${input.name}`);
 
+                // Se activan solo los inputs específicos
                 if (input.name === "YouTube") {
+                    console.log("Abriendo YouTube...");
                     window.open("https://www.youtube.com/@Dark_MART", "_blank");
                 } else if (input.name === "Linkedin") {
+                    console.log("Abriendo LinkedIn...");
                     window.open("https://www.linkedin.com/in/darkmart/", "_blank");
                 } else if (input.name === "Mail") {
+                    console.log("Abriendo correo...");
                     window.location.href = "mailto:atilanorush@gmail.com";
                 } else if (input.name === "Portfolio") {
+                    console.log("Abriendo Instagram...");
                     window.open("https://www.instagram.com/alocado.mentalista/", "_blank");
                 }
             });
