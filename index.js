@@ -36,13 +36,15 @@ document.getElementById("riveCanvas").addEventListener("click", (event) => {
 
     // Detectamos si el clic está dentro de un botón y activamos el trigger correspondiente
     inputs.forEach(input => {
+        console.log(`Revisando input: ${input.name}`);
+        
         if (input.type === "trigger" && input.name) {
             console.log(`Activando trigger: ${input.name}`);
             input.fire();
 
             // Comprobamos si el trigger tiene un enlace asociado
             if (linkActions[input.name.toUpperCase()]) {
-                console.log(`Abriendo enlace: ${linkActions[input.name.toUpperCase()]}`);
+                console.log(`Enlace encontrado para trigger ${input.name.toUpperCase()}: ${linkActions[input.name.toUpperCase()]}`);
                 
                 // Abrimos el enlace en una nueva pestaña (excepto para "Mail")
                 setTimeout(() => {
@@ -57,6 +59,8 @@ document.getElementById("riveCanvas").addEventListener("click", (event) => {
             } else {
                 console.log(`No se encontró enlace para: ${input.name}`);
             }
+        } else {
+            console.log(`Input ${input.name} no es de tipo 'trigger' o no tiene nombre.`);
         }
     });
 });
