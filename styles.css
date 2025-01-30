@@ -9,7 +9,6 @@ body, html {
     justify-content: center;
     align-items: center;
 }
-
 canvas {
     width: 100vw;
     height: 100vh;
