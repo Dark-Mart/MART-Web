@@ -8,29 +8,27 @@ const r = new rive.Rive({
     onLoad: () => {
         r.resizeDrawingSurfaceToCanvas();
         riveInstance = r;
-    }
-});
 
-document.getElementById("riveCanvas").addEventListener("click", () => {
-    if (!riveInstance) return;
+        // Obtener los inputs de la State Machine
+        const inputs = riveInstance.stateMachineInputs("WEB MART");
 
-    const inputs = riveInstance.stateMachineInputs("WEB MART");
+        // Crear un mapa de eventos para abrir enlaces
+        const linkActions = {
+            "YouTube": "https://www.youtube.com/@Dark_MART",
+            "Linkedin": "https://www.linkedin.com/in/darkmart/",
+            "Mail": "mailto:atilanorush@gmail.com",
+            "Portfolio": "https://www.instagram.com/alocado.mentalista/"
+        };
 
-    const links = {
-        "YouTube": "https://www.youtube.com/@Dark_MART",
-        "Linkedin": "https://www.linkedin.com/in/darkmart/",
-        "Mail": "mailto:atilanorush@gmail.com",
-        "Portfolio": "https://www.instagram.com/alocado.mentalista/"
-    };
-
-    inputs.forEach(input => {
-        if (input.type === "trigger" && links[input.name]) {
-            input.fire();
-            if (input.name === "Mail") {
-                window.location.href = links[input.name];
-            } else {
-                window.open(links[input.name], "_blank");
+        // Suscribirnos a los cambios de estado de la State Machine
+        riveInstance.onStateChange = (stateName) => {
+            if (linkActions[stateName]) {
+                if (stateName === "Mail") {
+                    window.location.href = linkActions[stateName];
+                } else {
+                    window.open(linkActions[stateName], "_blank");
+                }
             }
-        }
-    });
+        };
+    }
 });
