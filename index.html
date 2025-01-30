@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MART HUB</title>
+    <title>MART NET</title>
     <script src="https://unpkg.com/@rive-app/canvas"></script>
     <style>
         body, html {
@@ -35,34 +35,41 @@
             autoplay: true,
             stateMachines: "WEB MART", // Nombre correcto del state machine en Rive
             onLoad: () => {
-                console.log("✅ Rive cargado correctamente.");
+                console.log("Rive cargado correctamente.");
                 r.resizeDrawingSurfaceToCanvas();
-                riveInstance = r; // Guardamos la instancia para acceder a los inputs
+                riveInstance = r;
             }
         });
 
-        document.getElementById("riveCanvas").addEventListener("click", (event) => {
+        document.getElementById("riveCanvas").addEventListener("click", () => {
             if (!riveInstance) return;
 
             const inputs = riveInstance.stateMachineInputs("WEB MART");
-            
-            // Buscamos el input activado
-            let link = null;
 
-            inputs.forEach(input => {
+            console.log("Inputs detectados:", inputs); // Verifica qué inputs detecta Rive
+
+            // Verificamos si algún botón se activó
+            let link = null;
+            for (let input of inputs) {
+                console.log(`Input: ${input.name}, Tipo: ${input.constructor.name}, Valor: ${input.value}`);
+                
                 if (input.name === "YouTube" && input.value) {
                     link = "https://www.youtube.com/@Dark_MART";
+                    input.value = false; // Reiniciamos el input
                 } else if (input.name === "Linkedin" && input.value) {
                     link = "https://www.linkedin.com/in/darkmart/";
+                    input.value = false;
                 } else if (input.name === "Mail" && input.value) {
                     link = "mailto:atilanorush@gmail.com";
+                    input.value = false;
                 } else if (input.name === "Portfolio" && input.value) {
                     link = "https://www.instagram.com/alocado.mentalista/";
+                    input.value = false;
                 }
-            });
+            }
 
             if (link) {
-                console.log(`🔗 Abriendo enlace: ${link}`);
+                console.log(`Abriendo enlace: ${link}`);
                 window.open(link, "_blank");
             }
         });
