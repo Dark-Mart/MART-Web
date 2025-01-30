@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MART HUB</title>
+    <title>DARK MART</title>
     <script src="https://unpkg.com/@rive-app/canvas"></script>
     <style>
         body, html {
@@ -38,36 +38,21 @@
                 console.log("✅ Rive cargado correctamente.");
                 r.resizeDrawingSurfaceToCanvas();
                 riveInstance = r; // Guardamos la instancia para acceder a los inputs
+            },
+            onStateChange: (stateMachineName, stateName) => {
+                console.log(`🎯 Estado cambiado en: ${stateMachineName} → ${stateName}`);
 
-                // Verificar si los inputs están disponibles
-                const inputs = riveInstance.stateMachineInputs("WEB MART");
-                console.log("📌 Inputs detectados:", inputs.map(input => input.name));
-            }
-        });
-
-        document.getElementById("riveCanvas").addEventListener("click", (event) => {
-            if (!riveInstance) return;
-
-            const inputs = riveInstance.stateMachineInputs("WEB MART");
-
-            // Comprobamos si los inputs existen y están siendo activados
-            inputs.forEach(input => {
-                console.log(`🎯 Input detectado: ${input.name}`);
-
-                if (input.name === "YouTube") {
-                    console.log("📺 Abriendo YouTube...");
+                // Detectar qué botón ha sido activado
+                if (stateName === "YouTube") {
                     window.open("https://www.youtube.com/@Dark_MART", "_blank");
-                } else if (input.name === "Linkedin") {
-                    console.log("🔗 Abriendo LinkedIn...");
+                } else if (stateName === "Linkedin") {
                     window.open("https://www.linkedin.com/in/darkmart/", "_blank");
-                } else if (input.name === "Mail") {
-                    console.log("📩 Abriendo correo...");
-                    window.location.href = "mailto:atilanorush@gmail.com";
-                } else if (input.name === "Portfolio") {
-                    console.log("📷 Abriendo Instagram...");
+                } else if (stateName === "Mail") {
+                    window.open("mailto:atilanorush@gmail.com", "_blank");
+                } else if (stateName === "Portfolio") {
                     window.open("https://www.instagram.com/alocado.mentalista/", "_blank");
                 }
-            });
+            }
         });
     </script>
 </body>
