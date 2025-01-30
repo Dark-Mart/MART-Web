@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Web con Rive</title>
+    <title>MART HUB</title>
     <script src="https://unpkg.com/@rive-app/canvas"></script>
     <style>
         body, html {
@@ -35,21 +35,20 @@
             onLoad: () => {
                 console.log("Rive cargado");
                 r.resizeDrawingSurfaceToCanvas();
-            }
-        });
+            },
+            onStateChange: (event) => {
+                console.log("Estado cambiado:", event.data);
+                const state = event.data[0];
 
-        // Evento de clic en los botones
-        document.getElementById("riveCanvas").addEventListener("click", (event) => {
-            const hitArea = r.hitTest(event.offsetX, event.offsetY);
-            
-            if (hitArea === "Artboard") {
-                window.open("https://www.youtube.com/@Dark_MART", "_blank");
-            } else if (hitArea === "Artboard 2") {
-                window.open("https://www.linkedin.com/in/darkmart/", "_blank");
-            } else if (hitArea === "Artboard 3") {
-                window.location.href = "mailto:atilanorush@gmail.com";
-            } else if (hitArea === "Artboard 4") {
-                window.open("https://www.instagram.com/alocado.mentalista/", "_blank");
+                if (state === "YouTube_Hit") {
+                    window.open("https://www.youtube.com/@Dark_MART", "_blank");
+                } else if (state === "LinkedIn_Hit") {
+                    window.open("https://www.linkedin.com/in/darkmart/", "_blank");
+                } else if (state === "Email_Hit") {
+                    window.location.href = "mailto:atilanorush@gmail.com";
+                } else if (state === "Instagram_Hit") {
+                    window.open("https://www.instagram.com/alocado.mentalista/", "_blank");
+                }
             }
         });
     </script>
