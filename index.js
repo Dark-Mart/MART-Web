@@ -9,6 +9,10 @@ const r = new rive.Rive({
         console.log("✅ Rive cargado correctamente.");
         r.resizeDrawingSurfaceToCanvas();
         riveInstance = r;
+        
+document.getElementById("riveCanvas").addEventListener("click", () => {
+    console.log("🖱 Click detectado en el canvas de Rive.");
+});
 
         // Verificar inputs disponibles
         const inputs = riveInstance.stateMachineInputs("WEB MART");
