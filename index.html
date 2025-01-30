@@ -4,56 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MART HUB</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background-color: #EB9D86;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        iframe {
-            width: 100%;
-            height: 100vh;
-        }
-    </style>
+    <script src="https://unpkg.com/@rive-app/canvas"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    <!-- Embed de Rive -->
-    <iframe id="riveIframe" src="https://rive.app/s/4fvF_VvjSUaLqLXj6xre6g/embed" allowfullscreen allow="autoplay"></iframe>
-
-    <script>
-        // Escuchar los mensajes del iframe
-        window.addEventListener('message', (event) => {
-            // Verificar que el mensaje provenga del dominio correcto
-            if (event.origin !== 'https://rive.app') {
-                console.log('Mensaje ignorado: origen no permitido');
-                return;
-            }
-
-            const message = event.data;
-            console.log('Mensaje recibido:', message);
-
-            // Dependiendo del input activado en Rive, abrir el enlace correspondiente
-            if (message === 'YouTube') {
-                console.log("Abriendo YouTube...");
-                window.open("https://www.youtube.com/@Dark_MART", "_blank");
-            } else if (message === 'Linkedin') {
-                console.log("Abriendo LinkedIn...");
-                window.open("https://www.linkedin.com/in/darkmart/", "_blank");
-            } else if (message === 'Mail') {
-                console.log("Abriendo correo...");
-                window.location.href = "mailto:atilanorush@gmail.com";
-            } else if (message === 'Portfolio') {
-                console.log("Abriendo Instagram...");
-                window.open("https://www.instagram.com/alocado.mentalista/", "_blank");
-            }
-        });
-    </script>
+    <canvas id="riveCanvas"></canvas>
+    <script src="index.js"></script>
 </body>
 </html>
