@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MART HUB</title>
+    <title>MART Net</title>
     <script src="https://unpkg.com/@rive-app/canvas"></script>
     <style>
         body, html {
@@ -45,31 +45,45 @@
             }
         });
 
-        document.getElementById("riveCanvas").addEventListener("click", (event) => {
+        // Función para manejar el clic
+        const handleClick = (event) => {
             if (!riveInstance) return;
 
             const inputs = riveInstance.stateMachineInputs("WEB MART");
 
-            // Verificamos cuál input fue activado
+            // Establecer las posiciones del clic
+            const clickX = event.clientX;
+            const clickY = event.clientY;
+            
+            // Ajuste de coordenadas a las que deben activarse las acciones
             inputs.forEach(input => {
-                console.log(`Input detectado: ${input.name}`);
+                const inputName = input.name;
 
-                // Condiciones para cada input específico
-                if (input.name === "YouTube") {
+                // Aquí puedes controlar cada área clickeada de manera precisa
+                if (inputName === "YouTube" && isInBounds(clickX, clickY, input)) {
                     console.log("Abriendo YouTube...");
                     window.open("https://www.youtube.com/@Dark_MART", "_blank");
-                } else if (input.name === "Linkedin") {
+                } else if (inputName === "Linkedin" && isInBounds(clickX, clickY, input)) {
                     console.log("Abriendo LinkedIn...");
                     window.open("https://www.linkedin.com/in/darkmart/", "_blank");
-                } else if (input.name === "Mail") {
+                } else if (inputName === "Mail" && isInBounds(clickX, clickY, input)) {
                     console.log("Abriendo correo...");
                     window.location.href = "mailto:atilanorush@gmail.com";
-                } else if (input.name === "Portfolio") {
+                } else if (inputName === "Portfolio" && isInBounds(clickX, clickY, input)) {
                     console.log("Abriendo Instagram...");
                     window.open("https://www.instagram.com/alocado.mentalista/", "_blank");
                 }
             });
-        });
+        };
+
+        // Función para comprobar si el clic está dentro del área del input (botón)
+        const isInBounds = (x, y, input) => {
+            const boundingBox = input.boundingBox;
+            return x >= boundingBox[0] && x <= boundingBox[2] && y >= boundingBox[1] && y <= boundingBox[3];
+        };
+
+        // Asignamos el evento de clic al canvas
+        document.getElementById("riveCanvas").addEventListener("click", handleClick);
     </script>
 </body>
 </html>
