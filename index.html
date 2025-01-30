@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MART HUB</title>
+    <title>MART WEB</title>
     <script src="https://unpkg.com/@rive-app/canvas"></script>
     <style>
         body, html {
@@ -27,29 +27,38 @@
     <canvas id="riveCanvas"></canvas>
 
     <script>
+        let riveInstance;
+
         const r = new rive.Rive({
             src: "mart_web.riv", // Archivo .riv que subiste a GitHub
             canvas: document.getElementById("riveCanvas"),
             autoplay: true,
-            stateMachines: "WEB MART", // Asegúrate de usar el nombre correcto del state machine
+            stateMachines: "WEB MART", // Nombre correcto del state machine en Rive
             onLoad: () => {
                 console.log("Rive cargado");
                 r.resizeDrawingSurfaceToCanvas();
-            },
-            onStateChange: (event) => {
-                console.log("Estado cambiado:", event.data);
-                const state = event.data[0];
+                riveInstance = r; // Guardamos la instancia para acceder a los inputs
+            }
+        });
 
-                if (state === "Youtube") {
+        document.getElementById("riveCanvas").addEventListener("click", (event) => {
+            if (!riveInstance) return;
+
+            const inputs = riveInstance.stateMachineInputs("WEB MART");
+            console.log("Inputs detectados:", inputs);
+
+            // Verifica si los inputs existen en la state machine
+            inputs.forEach(input => {
+                if (input.name === "YouTube" && input.value) {
                     window.open("https://www.youtube.com/@Dark_MART", "_blank");
-                } else if (state === "Linkedin") {
+                } else if (input.name === "Linkedin" && input.value) {
                     window.open("https://www.linkedin.com/in/darkmart/", "_blank");
-                } else if (state === "Mail") {
+                } else if (input.name === "Mail" && input.value) {
                     window.location.href = "mailto:atilanorush@gmail.com";
-                } else if (state === "Portfolio") {
+                } else if (input.name === "Portfolio" && input.value) {
                     window.open("https://www.instagram.com/alocado.mentalista/", "_blank");
                 }
-            }
+            });
         });
     </script>
 </body>
