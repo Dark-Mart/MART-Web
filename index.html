@@ -50,11 +50,11 @@
 
             const inputs = riveInstance.stateMachineInputs("WEB MART");
 
-            // Comprobamos si los inputs existen y están siendo activados
+            // Verificamos cuál input fue activado
             inputs.forEach(input => {
                 console.log(`Input detectado: ${input.name}`);
 
-                // Se activan solo los inputs específicos
+                // Condiciones para cada input específico
                 if (input.name === "YouTube") {
                     console.log("Abriendo YouTube...");
                     window.open("https://www.youtube.com/@Dark_MART", "_blank");
