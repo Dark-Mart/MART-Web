@@ -8,45 +8,26 @@ const r = new rive.Rive({
     onLoad: () => {
         r.resizeDrawingSurfaceToCanvas();
         riveInstance = r;
-    }
-});
 
-// Mapeo de triggers con enlaces
-const linkActions = {
-    "YouTube": "https://www.youtube.com/@Dark_MART",
-    "Linkedin": "https://www.linkedin.com/in/darkmart/",
-    "Mail": "mailto:atilanorush@gmail.com",
-    "Portfolio": "https://www.instagram.com/alocado.mentalista/"
-};
+        // Mapeo de animaciones con sus enlaces
+        const linkActions = {
+            "YOUTUBE": "https://www.youtube.com/@Dark_MART",
+            "LINKEDIN": "https://www.linkedin.com/in/darkmart/",
+            "MAIL": "mailto:atilanorush@gmail.com",
+            "PORTFOLIO": "https://www.instagram.com/alocado.mentalista/"
+        };
 
-// Función para disparar triggers manualmente
-function activateTrigger(triggerName) {
-    if (!riveInstance) return;
-
-    const trigger = riveInstance.stateMachineInputs("WEB MART").find(input => input.name === triggerName && input.type === "trigger");
-
-    if (trigger) {
-        trigger.fire();
-        setTimeout(() => {
-            if (triggerName === "Mail") {
-                window.location.href = linkActions[triggerName];
-            } else {
-                window.open(linkActions[triggerName], "_blank");
+        // Detectar cambios de animación
+        riveInstance.onStateChange = (stateName) => {
+            if (linkActions[stateName]) {
+                setTimeout(() => {
+                    if (stateName === "MAIL") {
+                        window.location.href = linkActions[stateName];
+                    } else {
+                        window.open(linkActions[stateName], "_blank");
+                    }
+                }, 200); // Pequeño delay para que la animación se reproduzca
             }
-        }, 200); // Esperamos 200ms para que la animación tenga tiempo de activarse
-    }
-}
-
-// Evento de clic en el canvas para detectar las interacciones
-document.getElementById("riveCanvas").addEventListener("click", (event) => {
-    // Obtenemos la posición del clic
-    const canvasBounds = event.target.getBoundingClientRect();
-    const clickX = event.clientX - canvasBounds.left;
-    const clickY = event.clientY - canvasBounds.top;
-
-    // Detectamos qué trigger se debería activar
-    const triggers = ["YouTube", "Linkedin", "Mail", "Portfolio"];
-    for (let trigger of triggers) {
-        activateTrigger(trigger);
+        };
     }
 });
