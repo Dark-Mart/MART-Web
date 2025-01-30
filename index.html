@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Web con Rive</title>
-    <script src="https://unpkg.com/@rive-app/canvas@2.7.0"></script>
     <style>
         body, html {
             margin: 0;
@@ -13,45 +12,15 @@
             height: 100%;
             overflow: hidden;
             background-color: #EB9D86;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
-        canvas {
+        iframe {
             width: 100vw;
             height: 100vh;
+            border: none;
         }
     </style>
 </head>
 <body>
-    <canvas id="riveCanvas"></canvas>
-
-    <script>
-        const r = new rive.Rive({
-            src: "mart_web.riv", // Archivo .riv que subiste a GitHub
-            canvas: document.getElementById("riveCanvas"),
-            autoplay: true,
-            stateMachines: "WEB MART", // Asegúrate de usar el nombre correcto del state machine
-            onLoad: () => {
-                console.log("Rive cargado");
-                r.resizeDrawingSurfaceToCanvas();
-            }
-        });
-
-        // Evento de clic en los botones
-        document.getElementById("riveCanvas").addEventListener("click", (event) => {
-            const hitArea = r.hitTest(event.offsetX, event.offsetY);
-            
-            if (hitArea === "Artboard") {
-                window.open("https://www.youtube.com/@Dark_MART", "_blank");
-            } else if (hitArea === "Artboard 2") {
-                window.open("https://www.linkedin.com/in/darkmart/", "_blank");
-            } else if (hitArea === "Artboard 3") {
-                window.location.href = "mailto:atilanorush@gmail.com";
-            } else if (hitArea === "Artboard 4") {
-                window.open("https://www.instagram.com/alocado.mentalista/", "_blank");
-            }
-        });
-    </script>
+    <iframe src="https://rive.app/s/wKkHvJutG0KZwcdYRQJvVA/embed" allowfullscreen allow="autoplay"></iframe>
 </body>
 </html>
