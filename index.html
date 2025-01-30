@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MART HUB</title>
-    <script src="https://unpkg.com/@rive-app/canvas"></script>
     <style>
         body, html {
             margin: 0;
@@ -17,67 +16,42 @@
             justify-content: center;
             align-items: center;
         }
-        canvas {
-            width: 100vw;
+        iframe {
+            width: 100%;
             height: 100vh;
         }
     </style>
 </head>
 <body>
-    <canvas id="riveCanvas"></canvas>
+
+    <!-- Embed de Rive -->
+    <iframe id="riveIframe" src="https://rive.app/s/4fvF_VvjSUaLqLXj6xre6g/embed" allowfullscreen allow="autoplay"></iframe>
 
     <script>
-        let riveInstance;
-
-        const r = new rive.Rive({
-            src: "mart_web.riv", // Archivo .riv que subiste a GitHub
-            canvas: document.getElementById("riveCanvas"),
-            autoplay: true,
-            stateMachines: "WEB MART", // Nombre correcto del state machine en Rive
-            onLoad: () => {
-                console.log("Rive cargado correctamente.");
-                r.resizeDrawingSurfaceToCanvas();
-                riveInstance = r; // Guardamos la instancia para acceder a los inputs
+        // Escuchar los mensajes del iframe
+        window.addEventListener('message', (event) => {
+            // Verificar que el mensaje provenga del dominio correcto
+            if (event.origin !== 'https://rive.app') {
+                console.log('Mensaje ignorado: origen no permitido');
+                return;
             }
-        });
 
-        // Escuchar clics en el canvas
-        document.getElementById("riveCanvas").addEventListener("click", (event) => {
-            if (!riveInstance) return;
+            const message = event.data;
+            console.log('Mensaje recibido:', message);
 
-            // Obtener los inputs desde el state machine de Rive
-            const inputs = riveInstance.stateMachineInputs("WEB MART");
-
-            // Limpiamos cualquier estado anterior de los inputs (deberíamos activarlos solo cuando el clic sea válido)
-            let inputActivated = false;
-
-            // Revisar cuál input se ha activado
-            inputs.forEach(input => {
-                // Verificamos si el input está siendo activado (ejemplo: detectando la interacción con los botones)
-                if (input.value) {
-                    inputActivated = true; // Se activó un input
-                    console.log(`Input detectado: ${input.name}`);
-
-                    // Activamos la acción correspondiente por cada input
-                    if (input.name === "YouTube") {
-                        console.log("Abriendo YouTube...");
-                        window.open("https://www.youtube.com/@Dark_MART", "_blank");
-                    } else if (input.name === "Linkedin") {
-                        console.log("Abriendo LinkedIn...");
-                        window.open("https://www.linkedin.com/in/darkmart/", "_blank");
-                    } else if (input.name === "Mail") {
-                        console.log("Abriendo correo...");
-                        window.location.href = "mailto:atilanorush@gmail.com";
-                    } else if (input.name === "Portfolio") {
-                        console.log("Abriendo Instagram...");
-                        window.open("https://www.instagram.com/alocado.mentalista/", "_blank");
-                    }
-                }
-            });
-
-            // Si no se activó un input, no hacemos nada (no abrimos enlaces)
-            if (!inputActivated) {
-                console.log("Ningún input activado.");
+            // Dependiendo del input activado en Rive, abrir el enlace correspondiente
+            if (message === 'YouTube') {
+                console.log("Abriendo YouTube...");
+                window.open("https://www.youtube.com/@Dark_MART", "_blank");
+            } else if (message === 'Linkedin') {
+                console.log("Abriendo LinkedIn...");
+                window.open("https://www.linkedin.com/in/darkmart/", "_blank");
+            } else if (message === 'Mail') {
+                console.log("Abriendo correo...");
+                window.location.href = "mailto:atilanorush@gmail.com";
+            } else if (message === 'Portfolio') {
+                console.log("Abriendo Instagram...");
+                window.open("https://www.instagram.com/alocado.mentalista/", "_blank");
             }
         });
     </script>
