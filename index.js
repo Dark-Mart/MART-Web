@@ -23,7 +23,9 @@ const linkActions = {
 // Obtener inputs de la State Machine
 const getInputs = () => {
     if (!riveInstance) return [];
-    return riveInstance.stateMachineInputs("WEB MART");
+    const inputs = riveInstance.stateMachineInputs("WEB MART");
+    console.log("Inputs actuales:", inputs.map(input => input.name));  // Depuración
+    return inputs;
 };
 
 // Evento de clic en el canvas
@@ -41,7 +43,6 @@ document.getElementById("riveCanvas").addEventListener("click", (event) => {
     inputs.forEach(input => {
         if (input.type === "trigger") {
             const inputName = input.name.toUpperCase();
-
             console.log(`Trigger activado: ${inputName}`);
 
             // Activar la animación
@@ -65,3 +66,4 @@ document.getElementById("riveCanvas").addEventListener("click", (event) => {
         }
     });
 });
+
