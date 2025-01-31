@@ -34,26 +34,27 @@ document.getElementById("riveCanvas").addEventListener("click", (event) => {
 
     console.log("Inputs detectados:", inputs.map(input => input.name));
 
-    // Detectamos si el clic está dentro de un botón y activamos el trigger correspondiente
+    // Comprobamos si se activan los triggers y abrimos los enlaces
     inputs.forEach(input => {
         console.log(`Revisando input: ${input.name}`);
         
         if (input.type === "trigger" && input.name) {
             console.log(`Activando trigger: ${input.name}`);
-            input.fire();
+            input.fire();  // Disparar la animación correspondiente en Rive
 
             // Comprobamos si el trigger tiene un enlace asociado
-            if (linkActions[input.name.toUpperCase()]) {
-                console.log(`Enlace encontrado para trigger ${input.name.toUpperCase()}: ${linkActions[input.name.toUpperCase()]}`);
+            const triggerNameUpper = input.name.toUpperCase();
+            if (linkActions[triggerNameUpper]) {
+                console.log(`Enlace encontrado para trigger ${triggerNameUpper}: ${linkActions[triggerNameUpper]}`);
                 
                 // Abrimos el enlace en una nueva pestaña (excepto para "Mail")
                 setTimeout(() => {
-                    if (input.name.toUpperCase() === "MAIL") {
+                    if (triggerNameUpper === "MAIL") {
                         console.log("Abriendo correo...");
-                        window.location.href = linkActions[input.name.toUpperCase()];
+                        window.location.href = linkActions[triggerNameUpper];
                     } else {
                         console.log("Abriendo en nueva pestaña...");
-                        window.open(linkActions[input.name.toUpperCase()], "_blank");
+                        window.open(linkActions[triggerNameUpper], "_blank");
                     }
                 }, 200);  // Esperamos para que la animación se ejecute
             } else {
