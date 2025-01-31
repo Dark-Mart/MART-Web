@@ -1,12 +1,15 @@
 let riveInstance;
+let isMobile = window.innerWidth <= 768; // Detecta si es móvil
+
+const riveFile = isMobile ? "mart_phone.riv" : "mart_web.riv"; // Archivo según el dispositivo
 
 const r = new rive.Rive({
-    src: "mart_web.riv", // Archivo .riv que subiste a GitHub
+    src: riveFile,
     canvas: document.getElementById("riveCanvas"),
     autoplay: true,
-    stateMachines: "WEB MART", // Nombre correcto del state machine en Rive
+    stateMachines: "WEB MART",
     onLoad: () => {
-        console.log("Rive cargado correctamente.");
+        console.log(`Rive cargado: ${riveFile}`);
         r.resizeDrawingSurfaceToCanvas();
         riveInstance = r;
     }
@@ -17,16 +20,15 @@ document.getElementById("riveCanvas").addEventListener("click", () => {
 
     const inputs = riveInstance.stateMachineInputs("WEB MART");
 
-    console.log("Inputs detectados:", inputs); // Verifica qué inputs detecta Rive
+    console.log("Inputs detectados:", inputs);
 
-    // Verificamos si algún botón se activó
     let link = null;
     for (let input of inputs) {
         console.log(`Input: ${input.name}, Tipo: ${input.constructor.name}, Valor: ${input.value}`);
         
         if (input.name === "YouTube" && input.value) {
             link = "https://www.youtube.com/@Dark_MART";
-            input.value = false; // Reiniciamos el input
+            input.value = false;
         } else if (input.name === "Linkedin" && input.value) {
             link = "https://www.linkedin.com/in/darkmart/";
             input.value = false;
