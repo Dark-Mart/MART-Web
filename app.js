@@ -21,24 +21,32 @@ document.getElementById("riveCanvas").addEventListener("click", (event) => {
 
     const inputs = riveInstance.stateMachineInputs("WEB MART");
 
-    // Verificamos si un solo input está activado
+    // Verificamos cuál input está activado
     inputs.forEach(input => {
-        console.log(`Input detectado: ${input.name}`);
-        
-        // Asegurarse de que solo se activa un input a la vez
-        if (input.value === 1) {  // Si el trigger se activó
-            if (input.name === "YouTube") {
-                console.log("Abriendo YouTube...");
-                window.open("https://www.youtube.com/@Dark_MART", "_blank");
-            } else if (input.name === "Linkedin") {
-                console.log("Abriendo LinkedIn...");
-                window.open("https://www.linkedin.com/in/darkmart/", "_blank");
-            } else if (input.name === "Mail") {
-                console.log("Abriendo correo...");
-                window.location.href = "mailto:atilanorush@gmail.com";
-            } else if (input.name === "Portfolio") {
-                console.log("Abriendo Instagram...");
-                window.open("https://www.instagram.com/alocado.mentalista/", "_blank");
+        // Si el input está activado, abre el enlace correspondiente
+        if (input.value === 1) {  // El trigger se activó
+            console.log(`Input activado: ${input.name}`);
+            
+            // Solo abre el enlace correspondiente al trigger activado
+            switch(input.name) {
+                case "YouTube":
+                    console.log("Abriendo YouTube...");
+                    window.open("https://www.youtube.com/@Dark_MART", "_blank");
+                    break;
+                case "Linkedin":
+                    console.log("Abriendo LinkedIn...");
+                    window.open("https://www.linkedin.com/in/darkmart/", "_blank");
+                    break;
+                case "Mail":
+                    console.log("Abriendo correo...");
+                    window.location.href = "mailto:atilanorush@gmail.com";
+                    break;
+                case "Portfolio":
+                    console.log("Abriendo Instagram...");
+                    window.open("https://www.instagram.com/alocado.mentalista/", "_blank");
+                    break;
+                default:
+                    console.log("No hay enlace asociado a este input.");
             }
         }
     });
