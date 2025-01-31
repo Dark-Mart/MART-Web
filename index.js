@@ -4,8 +4,8 @@ document.addEventListener("DOMContentLoaded", function() {
     function loadRive() {
         let isMobile = window.innerWidth <= 768;
         let riveEmbed = isMobile 
-            ? '<iframe width="100%" height="100%" src="https://rive.app/s/_m9nvIj_sEizaP2qmQWzPA/embed" allowfullscreen allow="autoplay"></iframe>' 
-            : '<iframe width="100%" height="100%" src="https://rive.app/s/VkjyCngtz0qPt_8DR1KFWw/embed" allowfullscreen allow="autoplay"></iframe>';
+            ? '<iframe width="100%" height="100%" src="https://rive.app/s/z5fuQmVBPkSLvcdwxgSiNA/embed" allowfullscreen allow="autoplay"></iframe>' 
+            : '<iframe width="100%" height="100%" src="https://rive.app/s/cOEXIROMIUOuxRV8ml5ooQ/embed" allowfullscreen allow="autoplay"></iframe>';
 
         riveContainer.innerHTML = riveEmbed;
     }
@@ -18,3 +18,4 @@ document.addEventListener("DOMContentLoaded", function() {
         loadRive();
     });
 });
+
