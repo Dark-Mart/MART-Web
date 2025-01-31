@@ -1,31 +1,36 @@
 let riveInstance;
 let isMobile = window.innerWidth <= 768; // Detecta si es móvil
 
-const riveFile = isMobile ? "mart_phone.riv" : "mart_web.riv"; // Archivo según el dispositivo
+const riveFile = isMobile ? "mart_phone.riv" : "mart_web.riv"; // Carga el archivo correcto
 
-const r = new rive.Rive({
-    src: riveFile,
-    canvas: document.getElementById("riveCanvas"),
-    autoplay: true,
-    stateMachines: "WEB MART",
-    onLoad: () => {
-        console.log(`Rive cargado: ${riveFile}`);
-        r.resizeDrawingSurfaceToCanvas();
-        riveInstance = r;
-    }
-});
+// Función para inicializar Rive
+function loadRiveAnimation() {
+    const r = new rive.Rive({
+        src: riveFile,
+        canvas: document.getElementById("riveCanvas"),
+        autoplay: true,
+        stateMachines: "WEB MART",
+        onLoad: () => {
+            console.log(`Rive cargado correctamente: ${riveFile}`);
+            r.resizeDrawingSurfaceToCanvas();
+            riveInstance = r;
+        },
+        onStateChange: (event) => {
+            handleStateChange(event.data);
+        }
+    });
+}
 
-document.getElementById("riveCanvas").addEventListener("click", () => {
+// Función para manejar los eventos de los botones en Rive
+function handleStateChange(states) {
     if (!riveInstance) return;
 
     const inputs = riveInstance.stateMachineInputs("WEB MART");
 
-    console.log("Inputs detectados:", inputs);
-
     let link = null;
     for (let input of inputs) {
-        console.log(`Input: ${input.name}, Tipo: ${input.constructor.name}, Valor: ${input.value}`);
-        
+        console.log(`Input: ${input.name}, Valor: ${input.value}`);
+
         if (input.name === "YouTube" && input.value) {
             link = "https://www.youtube.com/@Dark_MART";
             input.value = false;
@@ -45,4 +50,7 @@ document.getElementById("riveCanvas").addEventListener("click", () => {
         console.log(`Abriendo enlace: ${link}`);
         window.open(link, "_blank");
     }
-});
+}
+
+// Llamamos a la función para cargar Rive
+loadRiveAnimation();
