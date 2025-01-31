@@ -1,41 +1,46 @@
 let riveInstance;
 
 const r = new rive.Rive({
-    src: "mart_web.riv",  // Verifica la ruta a tu archivo .riv
+    src: "mart_web.riv", // Archivo .riv que subiste a GitHub
     canvas: document.getElementById("riveCanvas"),
     autoplay: true,
-    stateMachines: "WEB MART",  // Verifica que este sea el nombre correcto de la máquina de estados
+    stateMachines: "WEB MART", // Nombre correcto del state machine en Rive
     onLoad: () => {
         console.log("Rive cargado correctamente.");
         r.resizeDrawingSurfaceToCanvas();
         riveInstance = r;
-
-        // Verificar si los inputs están disponibles
-        const inputs = riveInstance.stateMachineInputs("WEB MART");
-        console.log("Inputs detectados:", inputs.map(input => input.name));
     }
 });
 
-document.getElementById("riveCanvas").addEventListener("click", (event) => {
+document.getElementById("riveCanvas").addEventListener("click", () => {
     if (!riveInstance) return;
 
     const inputs = riveInstance.stateMachineInputs("WEB MART");
 
-    inputs.forEach(input => {
-        console.log(`Input detectado: ${input.name}`);
+    console.log("Inputs detectados:", inputs); // Verifica qué inputs detecta Rive
 
-        if (input.name === "YouTube") {
-            console.log("Abriendo YouTube...");
-            window.open("https://www.youtube.com/@Dark_MART", "_blank");
-        } else if (input.name === "Linkedin") {
-            console.log("Abriendo LinkedIn...");
-            window.open("https://www.linkedin.com/in/darkmart/", "_blank");
-        } else if (input.name === "Mail") {
-            console.log("Abriendo correo...");
-            window.location.href = "mailto:atilanorush@gmail.com";
-        } else if (input.name === "Portfolio") {
-            console.log("Abriendo Instagram...");
-            window.open("https://www.instagram.com/alocado.mentalista/", "_blank");
+    // Verificamos si algún botón se activó
+    let link = null;
+    for (let input of inputs) {
+        console.log(`Input: ${input.name}, Tipo: ${input.constructor.name}, Valor: ${input.value}`);
+        
+        if (input.name === "YouTube" && input.value) {
+            link = "https://www.youtube.com/@Dark_MART";
+            input.value = false; // Reiniciamos el input
+        } else if (input.name === "Linkedin" && input.value) {
+            link = "https://www.linkedin.com/in/darkmart/";
+            input.value = false;
+        } else if (input.name === "Mail" && input.value) {
+            link = "mailto:atilanorush@gmail.com";
+            input.value = false;
+        } else if (input.name === "Portfolio" && input.value) {
+            link = "https://www.instagram.com/alocado.mentalista/";
+            input.value = false;
         }
-    });
+    }
+
+    if (link) {
+        console.log(`Abriendo enlace: ${link}`);
+        window.open(link, "_blank");
+    }
 });
