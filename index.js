@@ -20,48 +20,48 @@ const linkActions = {
     "PORTFOLIO": "https://www.instagram.com/alocado.mentalista/"
 };
 
+// Obtener inputs de la State Machine
+const getInputs = () => {
+    if (!riveInstance) return [];
+    return riveInstance.stateMachineInputs("WEB MART");
+};
+
 // Evento de clic en el canvas
 document.getElementById("riveCanvas").addEventListener("click", (event) => {
-    if (!riveInstance) {
-        console.log("Rive no cargado aún.");
+    const inputs = getInputs();
+
+    if (!inputs || inputs.length === 0) {
+        console.log("No se detectaron inputs.");
         return;
     }
 
     console.log("Canvas clickeado");
 
-    // Obtener inputs de la State Machine
-    const inputs = riveInstance.stateMachineInputs("WEB MART");
-
-    console.log("Inputs detectados:", inputs.map(input => input.name));
-
-    // Comprobamos si se activan los triggers y abrimos los enlaces
+    // Revisamos todos los inputs para ver si alguno coincide con un trigger relevante
     inputs.forEach(input => {
-        console.log(`Revisando input: ${input.name}`);
-        
-        if (input.type === "trigger" && input.name) {
-            console.log(`Activando trigger: ${input.name}`);
-            input.fire();  // Disparar la animación correspondiente en Rive
+        if (input.type === "trigger") {
+            const inputName = input.name.toUpperCase();
+
+            console.log(`Trigger activado: ${inputName}`);
+
+            // Activar la animación
+            input.fire();
 
             // Comprobamos si el trigger tiene un enlace asociado
-            const triggerNameUpper = input.name.toUpperCase();
-            if (linkActions[triggerNameUpper]) {
-                console.log(`Enlace encontrado para trigger ${triggerNameUpper}: ${linkActions[triggerNameUpper]}`);
-                
+            if (linkActions[inputName]) {
+                console.log(`Enlace encontrado para ${inputName}: ${linkActions[inputName]}`);
+
                 // Abrimos el enlace en una nueva pestaña (excepto para "Mail")
                 setTimeout(() => {
-                    if (triggerNameUpper === "MAIL") {
+                    if (inputName === "MAIL") {
                         console.log("Abriendo correo...");
-                        window.location.href = linkActions[triggerNameUpper];
+                        window.location.href = linkActions[inputName];
                     } else {
-                        console.log("Abriendo en nueva pestaña...");
-                        window.open(linkActions[triggerNameUpper], "_blank");
+                        console.log("Abriendo enlace en nueva pestaña...");
+                        window.open(linkActions[inputName], "_blank");
                     }
-                }, 200);  // Esperamos para que la animación se ejecute
-            } else {
-                console.log(`No se encontró enlace para: ${input.name}`);
+                }, 200); // Esperamos para permitir que se ejecute la animación
             }
-        } else {
-            console.log(`Input ${input.name} no es de tipo 'trigger' o no tiene nombre.`);
         }
     });
 });
