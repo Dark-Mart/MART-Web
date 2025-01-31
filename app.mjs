@@ -1,4 +1,4 @@
-import { Rive, Layout, Fit, Alignment } from "@rive-app/canvas";
+import { Rive, Layout, Fit, Alignment } from "https://cdn.jsdelivr.net/npm/@rive-app/canvas@0.9.3/dist/rive.min.js";
 
 // Configuración de layout para el canvas
 const layout = new Layout({
