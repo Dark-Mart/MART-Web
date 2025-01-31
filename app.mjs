@@ -1,33 +1,33 @@
-import { Rive, Layout, Fit, Alignment } from "https://cdn.jsdelivr.net/npm/@rive-app/canvas@0.9.3/dist/rive.min.js";
+import { Rive, Fit, Alignment, Layout } from "https://cdn.jsdelivr.net/npm/@rive-app/canvas@0.9.3/dist/rive.min.js";
 
-// Configuración de layout para el canvas
+// Definir el layout para el canvas
 const layout = new Layout({
-  fit: Fit.FitWidth,  // Ajusta el contenido a la anchura
-  alignment: Alignment.Center,
+  fit: Fit.FitWidth,  // Ajuste para que la animación se ajuste al ancho del canvas
+  alignment: Alignment.Center,  // Centrado de la animación
 });
 
 // Obtener el canvas de HTML
 const riveCanvas = document.getElementById("riveCanvas");
 
-// Asegurarse de que el tamaño del canvas se ajuste cuando se redimensione la ventana
+// Redimensionar el canvas al tamaño de la ventana
 window.addEventListener("resize", () => {
   riveInstance.resizeDrawingSurfaceToCanvas();
 }, false);
 
-// Instancia de Rive para cargar la animación
+// Crear la instancia de Rive y cargar la animación
 const riveInstance = new Rive({
-  src: "mart_web.riv",  // Cargar el archivo Rive
-  stateMachines: "WEB MART",  // Nombre de la máquina de estados
-  canvas: riveCanvas,
-  layout: layout,  // Ajuste de layout opcional
-  autoplay: true,
+  src: "https://path_to_your_file/mart_web.riv", // Ruta al archivo Rive (asegúrate de que la URL sea correcta)
+  stateMachines: "WEB MART",  // Nombre de la máquina de estados en el archivo Rive
+  canvas: riveCanvas,  // Asignar el canvas para la animación
+  layout: layout,  // Ajuste del layout
+  autoplay: true,  // Reproducir la animación automáticamente
   onLoad: () => {
     console.log("Rive cargado correctamente.");
-    riveInstance.resizeDrawingSurfaceToCanvas();
+    riveInstance.resizeDrawingSurfaceToCanvas(); // Ajustar el tamaño de la superficie de dibujo
   },
 });
 
-// Detectar clics sobre el canvas
+// Detectar clics en el canvas
 document.getElementById("riveCanvas").addEventListener("click", (event) => {
   if (!riveInstance) return;
 
@@ -58,9 +58,4 @@ document.getElementById("riveCanvas").addEventListener("click", (event) => {
           window.open("https://www.instagram.com/alocado.mentalista/", "_blank");
           break;
         default:
-          console.log("Input no reconocido.");
-          break;
-      }
-    }
-  });
-});
+          console.log("Input no r
