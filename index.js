@@ -1,68 +1,43 @@
 let riveInstance;
 
 const r = new rive.Rive({
-    src: "mart_web.riv",
+    src: "mart_web.riv",  // Asegúrate de que el archivo .riv está en el mismo directorio
     canvas: document.getElementById("riveCanvas"),
     autoplay: true,
-    stateMachines: "WEB MART",
+    stateMachines: "WEB MART",  // Asegúrate de que este es el nombre correcto de la state machine
     onLoad: () => {
         console.log("Rive cargado correctamente.");
         r.resizeDrawingSurfaceToCanvas();
-        riveInstance = r;
+        riveInstance = r;  // Guardamos la instancia de Rive para interactuar con ella
+
+        // Verificar si los inputs están disponibles
+        const inputs = riveInstance.stateMachineInputs("WEB MART");
+        console.log("Inputs detectados:", inputs.map(input => input.name));
     }
 });
 
-// Mapeo de animaciones con sus enlaces
-const linkActions = {
-    "YOUTUBE": "https://www.youtube.com/@Dark_MART",
-    "LINKEDIN": "https://www.linkedin.com/in/darkmart/",
-    "MAIL": "mailto:atilanorush@gmail.com",
-    "PORTFOLIO": "https://www.instagram.com/alocado.mentalista/"
-};
-
-// Obtener inputs de la State Machine
-const getInputs = () => {
-    if (!riveInstance) return [];
-    const inputs = riveInstance.stateMachineInputs("WEB MART");
-    console.log("Inputs actuales:", inputs.map(input => input.name));  // Depuración
-    return inputs;
-};
-
-// Evento de clic en el canvas
 document.getElementById("riveCanvas").addEventListener("click", (event) => {
-    const inputs = getInputs();
+    if (!riveInstance) return;
 
-    if (!inputs || inputs.length === 0) {
-        console.log("No se detectaron inputs.");
-        return;
-    }
+    const inputs = riveInstance.stateMachineInputs("WEB MART");
 
-    console.log("Canvas clickeado");
-
-    // Intentar abrir todos los enlaces si se detectan los triggers correctamente
+    // Verificamos qué input fue activado
     inputs.forEach(input => {
-        if (input.type === "trigger") {
-            const inputName = input.name.toUpperCase();
-            console.log(`Trigger activado: ${inputName}`);
+        console.log(`Input detectado: ${input.name}`);
 
-            // Activar la animación
-            input.fire();
-
-            // Comprobamos si el trigger tiene un enlace asociado
-            if (linkActions[inputName]) {
-                console.log(`Abriendo enlace para ${inputName}: ${linkActions[inputName]}`);
-                
-                // Abrir el enlace en una nueva pestaña
-                setTimeout(() => {
-                    if (inputName === "MAIL") {
-                        console.log("Abriendo correo...");
-                        window.location.href = linkActions[inputName];
-                    } else {
-                        console.log("Abriendo enlace en nueva pestaña...");
-                        window.open(linkActions[inputName], "_blank");
-                    }
-                }, 200); // Esperamos para permitir que se ejecute la animación
-            }
+        // Condiciones para cada input específico
+        if (input.name === "YouTube") {
+            console.log("Abriendo YouTube...");
+            window.open("https://www.youtube.com/@Dark_MART", "_blank");
+        } else if (input.name === "Linkedin") {
+            console.log("Abriendo LinkedIn...");
+            window.open("https://www.linkedin.com/in/darkmart/", "_blank");
+        } else if (input.name === "Mail") {
+            console.log("Abriendo correo...");
+            window.location.href = "mailto:atilanorush@gmail.com";
+        } else if (input.name === "Portfolio") {
+            console.log("Abriendo Instagram...");
+            window.open("https://www.instagram.com/alocado.mentalista/", "_blank");
         }
     });
 });
