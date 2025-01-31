@@ -19,35 +19,29 @@ const r = new rive.Rive({
 document.getElementById("riveCanvas").addEventListener("click", (event) => {
     if (!riveInstance) return;
 
-    const inputs = riveInstance.stateMachineInputs("WEB MART");
+    // Detectamos la animación activa en la máquina de estados
+    const currentAnimation = riveInstance.stateMachineAnimation("WEB MART");
+    console.log("Animación activa:", currentAnimation);
 
-    // Verificamos cuál input está activado
-    inputs.forEach(input => {
-        // Si el input está activado, abre el enlace correspondiente
-        if (input.value === 1) {  // El trigger se activó
-            console.log(`Input activado: ${input.name}`);
-            
-            // Solo abre el enlace correspondiente al trigger activado
-            switch(input.name) {
-                case "YouTube":
-                    console.log("Abriendo YouTube...");
-                    window.open("https://www.youtube.com/@Dark_MART", "_blank");
-                    break;
-                case "Linkedin":
-                    console.log("Abriendo LinkedIn...");
-                    window.open("https://www.linkedin.com/in/darkmart/", "_blank");
-                    break;
-                case "Mail":
-                    console.log("Abriendo correo...");
-                    window.location.href = "mailto:atilanorush@gmail.com";
-                    break;
-                case "Portfolio":
-                    console.log("Abriendo Instagram...");
-                    window.open("https://www.instagram.com/alocado.mentalista/", "_blank");
-                    break;
-                default:
-                    console.log("No hay enlace asociado a este input.");
-            }
-        }
-    });
+    // Comprobamos cuál es la animación activa y si está asociada a un enlace
+    switch(currentAnimation) {
+        case "YOUTUBE":
+            console.log("Abriendo YouTube...");
+            window.open("https://www.youtube.com/@Dark_MART", "_blank");
+            break;
+        case "LINKEDIN":
+            console.log("Abriendo LinkedIn...");
+            window.open("https://www.linkedin.com/in/darkmart/", "_blank");
+            break;
+        case "MAIL":
+            console.log("Abriendo correo...");
+            window.location.href = "mailto:atilanorush@gmail.com";
+            break;
+        case "PORTFOLIO":
+            console.log("Abriendo Instagram...");
+            window.open("https://www.instagram.com/alocado.mentalista/", "_blank");
+            break;
+        default:
+            console.log("No hay enlace asociado a esta animación.");
+    }
 });
