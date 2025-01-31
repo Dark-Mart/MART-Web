@@ -16,7 +16,7 @@ window.addEventListener("resize", () => {
 
 // Crear la instancia de Rive y cargar la animación
 const riveInstance = new Rive({
-  src: "https://path_to_your_file/mart_web.riv", // Ruta al archivo Rive (asegúrate de que la URL sea correcta)
+  src: "mart_web.riv", // Ruta al archivo Rive (asegúrate de que la URL sea correcta)
   stateMachines: "WEB MART",  // Nombre de la máquina de estados en el archivo Rive
   canvas: riveCanvas,  // Asignar el canvas para la animación
   layout: layout,  // Ajuste del layout
