@@ -39,7 +39,7 @@ document.getElementById("riveCanvas").addEventListener("click", (event) => {
 
     console.log("Canvas clickeado");
 
-    // Revisamos todos los inputs para ver si alguno coincide con un trigger relevante
+    // Intentar abrir todos los enlaces si se detectan los triggers correctamente
     inputs.forEach(input => {
         if (input.type === "trigger") {
             const inputName = input.name.toUpperCase();
@@ -50,9 +50,9 @@ document.getElementById("riveCanvas").addEventListener("click", (event) => {
 
             // Comprobamos si el trigger tiene un enlace asociado
             if (linkActions[inputName]) {
-                console.log(`Enlace encontrado para ${inputName}: ${linkActions[inputName]}`);
-
-                // Abrimos el enlace en una nueva pestaña (excepto para "Mail")
+                console.log(`Abriendo enlace para ${inputName}: ${linkActions[inputName]}`);
+                
+                // Abrir el enlace en una nueva pestaña
                 setTimeout(() => {
                     if (inputName === "MAIL") {
                         console.log("Abriendo correo...");
@@ -66,4 +66,3 @@ document.getElementById("riveCanvas").addEventListener("click", (event) => {
         }
     });
 });
-
