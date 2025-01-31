@@ -32,9 +32,6 @@ document.getElementById("riveCanvas").addEventListener("click", (event) => {
         } else if (input.name === "Linkedin") {
             console.log("Abriendo LinkedIn...");
             window.open("https://www.linkedin.com/in/darkmart/", "_blank");
-        } else if (input.name === "Mail") {
-            console.log("Abriendo correo...");
-            window.location.href = "mailto:atilanorush@gmail.com";
         } else if (input.name === "Portfolio") {
             console.log("Abriendo Instagram...");
             window.open("https://www.instagram.com/alocado.mentalista/", "_blank");
