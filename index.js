@@ -2,7 +2,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const riveWeb = document.getElementById("riveWeb");
   const rivePhone = document.getElementById("rivePhone");
 
-  // Función para mostrar el iframe adecuado según el ancho de pantalla
+  // Función para mostrar el iframe adecuado según el ancho de la pantalla
   function updateIframeDisplay() {
     if (window.innerWidth <= 768) {
       riveWeb.style.display = "none";
@@ -13,30 +13,35 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Actualiza la visibilidad del iframe al cargar y al redimensionar
   updateIframeDisplay();
   window.addEventListener("resize", updateIframeDisplay);
 
-  // Escucha mensajes (eventos) enviados desde el embed de Rive
+  // Listener para detectar mensajes enviados por Rive
   window.addEventListener("message", (event) => {
-    // Se espera que el mensaje tenga una propiedad "name" con el nombre del evento
-    if (event.data && typeof event.data === "object" && event.data.name) {
-      handleRiveEvent(event.data.name);
-    } else if (typeof event.data === "string") {
-      // En ocasiones puede venir en formato string JSON
+    // Registra el mensaje recibido para depuración
+    console.log("Mensaje recibido:", event.data);
+
+    let data;
+    if (typeof event.data === "string") {
       try {
-        const data = JSON.parse(event.data);
-        if (data.name) {
-          handleRiveEvent(data.name);
-        }
+        data = JSON.parse(event.data);
       } catch (e) {
-        // Si no es JSON, se ignora
+        data = event.data;
       }
+    } else {
+      data = event.data;
+    }
+    
+    // Si se recibió un objeto con la propiedad "name", lo procesamos
+    if (data && data.name) {
+      handleRiveEvent(data.name);
     }
   });
 
-  // Función que mapea los nombres de evento a sus URLs correspondientes y abre el enlace
+  // Función que mapea el nombre del evento a su URL y abre el enlace
   function handleRiveEvent(eventName) {
-    console.log("Evento recibido: " + eventName);
+    console.log("Evento detectado: " + eventName);
     let link = null;
 
     if (eventName === "Youtube") {
