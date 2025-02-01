@@ -1,4 +1,6 @@
-import { Rive, EventType, RiveEventType } from "https://unpkg.com/@rive-app/canvas@2.0.123?module";
+// Se asume que el script de Rive ha cargado y define window.Rive.
+// Extraemos los elementos necesarios de la API.
+const { Rive, EventType, RiveEventType } = window.Rive;
 
 const canvas = document.getElementById("riveCanvas");
 
@@ -8,7 +10,7 @@ function loadRive(riveFile) {
     src: riveFile,
     canvas: canvas,
     autoplay: true,
-    stateMachines: "WEB MART",  // Asegúrate de que el nombre coincide con el de tu archivo Rive
+    stateMachines: "WEB MART",  // Asegúrate de que este nombre coincide con el de tu archivo Rive
     enableEventSideEffects: true,
     onLoad: () => {
       riveInstance.resizeDrawingSurfaceToCanvas();
@@ -20,8 +22,8 @@ function loadRive(riveFile) {
   riveInstance.on(EventType.RiveEvent, (riveEvent) => {
     const eventData = riveEvent.data;
     console.log("Evento recibido:", eventData);
-    
-    // Si es un evento General, usamos el nombre del evento para abrir la URL
+
+    // Si el evento es de tipo General, se usará el nombre para disparar la acción
     if (eventData.type === RiveEventType.General) {
       let link = null;
       if (eventData.name === "Youtube") {
@@ -37,7 +39,7 @@ function loadRive(riveFile) {
         window.open(link, "_blank");
       }
     }
-    // Si el evento ya es de tipo OpenUrl, se abre directamente (esto es opcional)
+    // Opcionalmente, si el evento es del tipo OpenUrl se puede manejar de otra forma:
     else if (eventData.type === RiveEventType.OpenUrl && eventData.url) {
       window.open(eventData.url, "_blank");
     }
@@ -53,13 +55,13 @@ let riveFile = isMobile ? "mart_phone.riv" : "mart_web.riv";
 // Cargar la animación
 let riveInstance = loadRive(riveFile);
 
-// Opcional: Volver a cargar la animación si cambia el tamaño de la pantalla
+// Si cambia el tamaño de la pantalla, recargar la animación si es necesario
 window.addEventListener("resize", () => {
   let newIsMobile = window.innerWidth <= 768;
   let newRiveFile = newIsMobile ? "mart_phone.riv" : "mart_web.riv";
   if (newRiveFile !== riveFile) {
     riveFile = newRiveFile;
-    // Si la instancia anterior tiene método cleanup, se puede limpiar antes de recargar
+    // Limpia la instancia anterior si es que tiene el método cleanup
     if (riveInstance.cleanup) {
       riveInstance.cleanup();
     }
