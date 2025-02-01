@@ -8,14 +8,17 @@
   <script type="module" src="index.js"></script>
 </head>
 <body>
-  <div id="rive-container">
-    <!-- Se cargará uno u otro iframe según el tamaño de pantalla -->
-    <iframe id="rive-web" style="border: none" width="2277" height="1280" 
-      src="https://rive.app/s/cOEXIROMIUOuxRV8ml5ooQ/embed" 
-      allowfullscreen allow="autoplay"></iframe>
-    <iframe id="rive-phone" style="border: none; display: none;" width="720" height="1280" 
-      src="https://rive.app/s/z5fuQmVBPkSLvcdwxgSiNA/embed" 
-      allowfullscreen allow="autoplay"></iframe>
+  <div id="riveContainer">
+    <!-- Iframe para versión web -->
+    <iframe id="riveWeb" style="border: none;" width="2277" height="1280" 
+      src="https://rive.app/s/7U2XYEEaPE2HPhZJ5TU5bw/embed" 
+      allowfullscreen allow="autoplay">
+    </iframe>
+    <!-- Iframe para versión móvil -->
+    <iframe id="rivePhone" style="border: none;" width="720" height="1280" 
+      src="https://rive.app/s/ioc0B6MoFESL0CEs3vDfug/embed" 
+      allowfullscreen allow="autoplay">
+    </iframe>
   </div>
 </body>
 </html>
