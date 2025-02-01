@@ -1,50 +1,47 @@
-import Rive from "@rive-app/canvas";
+window.addEventListener("DOMContentLoaded", function () {
+  const riveWeb = document.getElementById("rive-web");
+  const rivePhone = document.getElementById("rive-phone");
 
-document.addEventListener("DOMContentLoaded", async function () {
-    let riveCanvas = document.getElementById("riveCanvas");
-    let riveInstance;
+  // Función para determinar qué versión de Rive mostrar según el ancho de la pantalla
+  function checkScreenSize() {
+    if (window.innerWidth <= 768) {
+      riveWeb.style.display = "none";
+      rivePhone.style.display = "block";
+    } else {
+      riveWeb.style.display = "block";
+      rivePhone.style.display = "none";
+    }
+  }
 
-    // Determinar qué archivo cargar según el dispositivo
-    let riveFile = window.innerWidth <= 768 ? "mart_phone.riv" : "mart_web.riv";
+  // Comprobación inicial y al redimensionar la ventana
+  checkScreenSize();
+  window.addEventListener("resize", checkScreenSize);
 
-    // Obtener archivo .riv como bytes
-    const response = await fetch(riveFile);
-    const bytes = await response.arrayBuffer();
+  // Escuchar mensajes enviados desde el iframe de Rive
+  window.addEventListener("message", function (event) {
+    // Se asume que el mensaje es un string con el nombre del evento
+    const eventData = event.data;
+    if (typeof eventData === "string") {
+      handleRiveEvent(eventData);
+    }
+  });
 
-    // Cargar Rive en el canvas
-    riveInstance = new Rive({
-        buffer: bytes,
-        canvas: riveCanvas,
-        autoplay: true,
-        stateMachines: "WEB MART",
-        enableEventSideEffects: true, // Habilitar efectos de eventos
-        onLoad: () => {
-            console.log("Rive cargado correctamente.");
-        },
-        onStateChange: (event) => {
-            console.log("Evento detectado:", event);
+  // Función que asocia cada evento a su URL correspondiente y abre la URL en una nueva pestaña
+  function handleRiveEvent(eventName) {
+    let link = null;
+    if (eventName === "Youtube") {
+      link = "https://www.youtube.com/@Dark_MART";
+    } else if (eventName === "Linkedin") {
+      link = "https://www.linkedin.com/in/darkmart/";
+    } else if (eventName === "Mail") {
+      link = "mailto:atilanorush@gmail.com";
+    } else if (eventName === "Portfolio") {
+      link = "https://www.instagram.com/alocado.mentalista/";
+    }
 
-            // Mapeo de eventos a URLs
-            const links = {
-                "YouTube": "https://www.youtube.com/@Dark_MART",
-                "Linkedin": "https://www.linkedin.com/in/darkmart/",
-                "Mail": "mailto:atilanorush@gmail.com",
-                "Portfolio": "https://www.instagram.com/alocado.mentalista/"
-            };
-
-            if (links[event.data]) {
-                console.log(`Abriendo enlace: ${links[event.data]}`);
-                window.open(links[event.data], "_blank");
-            }
-        }
-    });
-
-    // Manejo de redimensionamiento
-    window.addEventListener("resize", () => {
-        let newRiveFile = window.innerWidth <= 768 ? "mart_phone.riv" : "mart_web.riv";
-        if (newRiveFile !== riveFile) {
-            riveFile = newRiveFile;
-            riveInstance.load(newRiveFile);
-        }
-    });
+    if (link) {
+      console.log(`Abriendo enlace: ${link}`);
+      window.open(link, "_blank");
+    }
+  }
 });
