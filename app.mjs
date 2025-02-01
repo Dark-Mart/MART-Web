@@ -5,7 +5,7 @@ const canvas = document.getElementById("riveCanvas");
 
 // Carga la instancia de Rive con el archivo .riv desde GitHub
 const riveInstance = new Rive({
-  src: "https://raw.githubusercontent.com/TU-USUARIO/TU-REPOSITORIO/main/mart_web.riv", // Reemplaza esto con la URL de tu archivo .riv
+  src: "mart_web.riv",
   canvas: canvas,
   autoplay: true,
   stateMachines: "WEB MART",  // El nombre de la máquina de estados que has definido en Rive
