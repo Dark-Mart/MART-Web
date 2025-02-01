@@ -1,5 +1,4 @@
-// Se asume que el script de Rive ha cargado y define window.Rive.
-// Extraemos los elementos necesarios de la API.
+// Se asume que el script de Rive ya cargó y define window.Rive
 const { Rive, EventType, RiveEventType } = window.Rive;
 
 const canvas = document.getElementById("riveCanvas");
@@ -39,7 +38,7 @@ function loadRive(riveFile) {
         window.open(link, "_blank");
       }
     }
-    // Opcionalmente, si el evento es del tipo OpenUrl se puede manejar de otra forma:
+    // Opcional: Si el evento es de tipo OpenUrl y tiene una URL, se abre directamente
     else if (eventData.type === RiveEventType.OpenUrl && eventData.url) {
       window.open(eventData.url, "_blank");
     }
@@ -61,7 +60,7 @@ window.addEventListener("resize", () => {
   let newRiveFile = newIsMobile ? "mart_phone.riv" : "mart_web.riv";
   if (newRiveFile !== riveFile) {
     riveFile = newRiveFile;
-    // Limpia la instancia anterior si es que tiene el método cleanup
+    // Si la instancia anterior tiene método cleanup, se puede limpiar antes de recargar
     if (riveInstance.cleanup) {
       riveInstance.cleanup();
     }
