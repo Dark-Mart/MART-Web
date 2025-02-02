@@ -1,4 +1,4 @@
-import { Rive, EventType, RiveEventType } from 'https://unpkg.com/@rive-app/canvas@latest';
+import { Rive, EventType, RiveEventType } from 'https://unpkg.com/@rive-app/canvas';
 
 let riveInstance;
 
