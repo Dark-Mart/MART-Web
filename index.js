@@ -1,4 +1,5 @@
-import { Rive, EventType, RiveEventType } from 'https://unpkg.com/@rive-app/canvas';
+// Importar Rive desde un CDN
+import { Rive, EventType, RiveEventType } from '@rive-app/canvas';
 
 let riveInstance;
 
@@ -76,6 +77,10 @@ function handleEvent(eventName) {
 // Llamar a la función para cargar el Rive al inicio
 loadRive();
 
+// Detectar el cambio de tamaño de la ventana y cargar el archivo adecuado
+window.addEventListener("resize", () => {
+    loadRive();
+});
 // Detectar el cambio de tamaño de la ventana y cargar el archivo adecuado
 window.addEventListener("resize", () => {
     loadRive();
