@@ -1,6 +1,6 @@
 // URLs de los iframes de Rive
-const RIVE_WEB_URL = "https://rive.app/s/q3g7Hh2XAUGpQXoG6naMug/embed";
-const RIVE_PHONE_URL = "https://rive.app/s/vG0DebF_8UOd8TJeiEQV7Q/embed";
+const RIVE_WEB_URL = "https://rive.app/s/a9eScgpCCUS1V3Q7q5tCGw/embed";
+const RIVE_PHONE_URL = "https://rive.app/s/1SzOE6KBLU_Kwm1lFLAGVg/embed";
 
 // Obtener el iframe y el contenedor
 const riveIframe = document.getElementById("riveIframe");
