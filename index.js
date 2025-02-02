@@ -1,5 +1,5 @@
 // Importar Rive desde un CDN
-import { Rive, EventType, RiveEventType } from '/@rive-app/canvas';
+import { Rive, EventType, RiveEventType } from '@rive-app/canvas';
 
 let riveInstance;
 
