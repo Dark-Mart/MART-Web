@@ -1,5 +1,5 @@
 // Importar Rive desde un CDN
-import { Rive, EventType, Fit, Layout } from "@rive-app/canvas";
+import { Rive, EventType, Fit, Layout } from "/@rive-app/canvas";
 
 // Variables globales
 let riveInstance;
