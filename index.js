@@ -1,70 +1,45 @@
-import RiveCanvas, { RiveEventType } from '@rive-app/canvas-advanced';
+import { Rive, EventType, RiveEventType } from '@rive-app/canvas';
 
 let riveInstance;
-let riveFile;
-let stateMachine;
-let prevTimestamp = 0;
 
 // Función para cargar el archivo Rive según el tamaño de pantalla
-async function loadRive() {
+function loadRive() {
     const canvas = document.getElementById("riveCanvas");
 
     // Detectar si estamos en un dispositivo móvil o web
     const isMobile = window.innerWidth <= 768; // Puedes ajustar este valor si es necesario
     const fileSrc = isMobile ? "mart_phone.riv" : "mart_web.riv"; // Seleccionar el archivo .riv
 
-    if (riveFile && riveFile.src === fileSrc) return; // Evitar cargar el mismo archivo
+    if (riveInstance && riveInstance.src === fileSrc) return; // Evitar cargar el mismo archivo
 
     // Cargar el archivo adecuado
-    const rive = await RiveCanvas({
-        locateFile: (file) => `https://unpkg.com/@rive-app/canvas-advanced@1.0.0/${file}`,
+    riveInstance = new Rive({
+        src: fileSrc, // Cargar el archivo según el dispositivo
+        canvas: canvas,
+        autoplay: true,
+        stateMachines: "WEB MART", // Nombre de la State Machine
+        onLoad: () => {
+            console.log(`Rive cargado correctamente desde ${fileSrc}.`);
+            riveInstance.resizeDrawingSurfaceToCanvas();
+        },
     });
 
-    const response = await fetch(fileSrc);
-    const arrayBuffer = await response.arrayBuffer();
-
-    riveInstance = await rive.load(new Uint8Array(arrayBuffer));
-    const artboard = riveInstance.defaultArtboard();
-    stateMachine = artboard.stateMachineByName("WEB MART"); // Nombre de la State Machine
-
-    if (!stateMachine) {
-        console.error("No se encontró la State Machine 'WEB MART'.");
-        return;
-    }
-
-    console.log(`Rive cargado correctamente desde ${fileSrc}.`);
-    startRenderLoop();
+    // Suscribirse a eventos de Rive
+    riveInstance.on(EventType.RiveEvent, onRiveEventReceived);
 }
 
-// Bucle de renderizado personalizado
-function renderLoop(timestamp) {
-    if (!prevTimestamp) prevTimestamp = timestamp;
-    const elapsedTimeSec = (timestamp - prevTimestamp) / 1000;
+// Función para manejar eventos de Rive
+function onRiveEventReceived(riveEvent) {
+    const eventData = riveEvent.data;
+    console.log("Evento detectado:", eventData);
 
-    if (stateMachine) {
-        // Verificar eventos reportados
-        const numFiredEvents = stateMachine.reportedEventCount();
-        for (let i = 0; i < numFiredEvents; i++) {
-            const event = stateMachine.reportedEventAt(i);
-            console.log(`Evento detectado: ${event.name}`);
-
-            // Manejar el evento según su tipo
-            if (event.type === RiveEventType.General) {
-                handleEvent(event.name);
-            }
-        }
-
-        // Avanzar la State Machine
-        stateMachine.advance(elapsedTimeSec);
+    if (eventData.type === RiveEventType.General) {
+        // Manejar eventos generales (como los clics en botones)
+        handleEvent(eventData.name);
+    } else if (eventData.type === RiveEventType.OpenUrl) {
+        // Manejar eventos de apertura de URL
+        window.open(eventData.url, "_blank");
     }
-
-    prevTimestamp = timestamp;
-    requestAnimationFrame(renderLoop);
-}
-
-// Iniciar el bucle de renderizado
-function startRenderLoop() {
-    requestAnimationFrame(renderLoop);
 }
 
 // Función para manejar los eventos y abrir los enlaces correspondientes
