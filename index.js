@@ -1,8 +1,12 @@
+import RiveCanvas, { RiveEventType } from '@rive-app/canvas-advanced';
+
 let riveInstance;
 let riveFile;
+let stateMachine;
+let prevTimestamp = 0;
 
 // Función para cargar el archivo Rive según el tamaño de pantalla
-function loadRive() {
+async function loadRive() {
     const canvas = document.getElementById("riveCanvas");
 
     // Detectar si estamos en un dispositivo móvil o web
@@ -12,32 +16,56 @@ function loadRive() {
     if (riveFile && riveFile.src === fileSrc) return; // Evitar cargar el mismo archivo
 
     // Cargar el archivo adecuado
-    const r = new rive.Rive({
-        src: fileSrc,  // Cargar el archivo según el dispositivo
-        canvas: canvas,
-        autoplay: true,
-        stateMachines: "WEB MART",  // Nombre de la State Machine
-        onLoad: () => {
-            console.log(`Rive cargado correctamente desde ${fileSrc}.`);
-            r.resizeDrawingSurfaceToCanvas();
-            riveInstance = r;
-            riveFile = r;
-        },
-        onEvent: (event) => {
-            // Este evento se dispara cuando un evento de Rive es activado
-            console.log(`Evento activado: ${event.name}`);
-            handleEvent(event.name);
-        }
+    const rive = await RiveCanvas({
+        locateFile: (file) => `https://unpkg.com/@rive-app/canvas-advanced@1.0.0/${file}`,
     });
+
+    const response = await fetch(fileSrc);
+    const arrayBuffer = await response.arrayBuffer();
+
+    riveInstance = await rive.load(new Uint8Array(arrayBuffer));
+    const artboard = riveInstance.defaultArtboard();
+    stateMachine = artboard.stateMachineByName("WEB MART"); // Nombre de la State Machine
+
+    if (!stateMachine) {
+        console.error("No se encontró la State Machine 'WEB MART'.");
+        return;
+    }
+
+    console.log(`Rive cargado correctamente desde ${fileSrc}.`);
+    startRenderLoop();
 }
 
-// Llamar a la función para cargar el Rive al inicio
-loadRive();
+// Bucle de renderizado personalizado
+function renderLoop(timestamp) {
+    if (!prevTimestamp) prevTimestamp = timestamp;
+    const elapsedTimeSec = (timestamp - prevTimestamp) / 1000;
 
-// Detectar el cambio de tamaño de la ventana y cargar el archivo adecuado
-window.addEventListener("resize", () => {
-    loadRive();
-});
+    if (stateMachine) {
+        // Verificar eventos reportados
+        const numFiredEvents = stateMachine.reportedEventCount();
+        for (let i = 0; i < numFiredEvents; i++) {
+            const event = stateMachine.reportedEventAt(i);
+            console.log(`Evento detectado: ${event.name}`);
+
+            // Manejar el evento según su tipo
+            if (event.type === RiveEventType.General) {
+                handleEvent(event.name);
+            }
+        }
+
+        // Avanzar la State Machine
+        stateMachine.advance(elapsedTimeSec);
+    }
+
+    prevTimestamp = timestamp;
+    requestAnimationFrame(renderLoop);
+}
+
+// Iniciar el bucle de renderizado
+function startRenderLoop() {
+    requestAnimationFrame(renderLoop);
+}
 
 // Función para manejar los eventos y abrir los enlaces correspondientes
 function handleEvent(eventName) {
@@ -62,3 +90,11 @@ function handleEvent(eventName) {
             console.log("Evento no reconocido.");
     }
 }
+
+// Llamar a la función para cargar el Rive al inicio
+loadRive();
+
+// Detectar el cambio de tamaño de la ventana y cargar el archivo adecuado
+window.addEventListener("resize", () => {
+    loadRive();
+});
