@@ -1,9 +1,9 @@
-import { Rive, EventType, RiveEventType } from '@rive-app/canvas';
+import { Rive, EventType, RiveEventType } from 'https://unpkg.com/@rive-app/canvas@latest';
 
 let riveInstance;
 
 // Función para cargar el archivo Rive según el tamaño de pantalla
-function loadRive() {
+async function loadRive() {
     const canvas = document.getElementById("riveCanvas");
 
     // Detectar si estamos en un dispositivo móvil o web
@@ -12,20 +12,27 @@ function loadRive() {
 
     if (riveInstance && riveInstance.src === fileSrc) return; // Evitar cargar el mismo archivo
 
-    // Cargar el archivo adecuado
-    riveInstance = new Rive({
-        src: fileSrc, // Cargar el archivo según el dispositivo
-        canvas: canvas,
-        autoplay: true,
-        stateMachines: "WEB MART", // Nombre de la State Machine
-        onLoad: () => {
-            console.log(`Rive cargado correctamente desde ${fileSrc}.`);
-            riveInstance.resizeDrawingSurfaceToCanvas();
-        },
-    });
+    try {
+        // Cargar el archivo adecuado
+        riveInstance = new Rive({
+            src: fileSrc, // Cargar el archivo según el dispositivo
+            canvas: canvas,
+            autoplay: true,
+            stateMachines: "WEB MART", // Nombre de la State Machine
+            onLoad: () => {
+                console.log(`Rive cargado correctamente desde ${fileSrc}.`);
+                riveInstance.resizeDrawingSurfaceToCanvas();
+            },
+            onError: (error) => {
+                console.error("Error al cargar Rive:", error);
+            },
+        });
 
-    // Suscribirse a eventos de Rive
-    riveInstance.on(EventType.RiveEvent, onRiveEventReceived);
+        // Suscribirse a eventos de Rive
+        riveInstance.on(EventType.RiveEvent, onRiveEventReceived);
+    } catch (error) {
+        console.error("Error al inicializar Rive:", error);
+    }
 }
 
 // Función para manejar eventos de Rive
