@@ -1,5 +1,5 @@
 // Importar Rive desde un CDN
-import { Rive, EventType, RiveEventType } from '@rive-app/canvas';
+import { Rive, EventType, RiveEventType } from 'https://unpkg.com/@rive-app/canvas';
 
 let riveInstance;
 
@@ -9,14 +9,14 @@ async function loadRive() {
 
     // Detectar si estamos en un dispositivo móvil o web
     const isMobile = window.innerWidth <= 768; // Puedes ajustar este valor si es necesario
-    const fileSrc = isMobile ? "mart_phone.riv" : "mart_web.riv"; // Seleccionar el archivo .riv
+    const fileSrc = isMobile ? "./mart_phone.riv" : "./mart_web.riv"; // Ruta relativa al archivo .riv
 
     if (riveInstance && riveInstance.src === fileSrc) return; // Evitar cargar el mismo archivo
 
     try {
         // Cargar el archivo adecuado
         riveInstance = new Rive({
-            src: fileSrc, // Cargar el archivo según el dispositivo
+            src: fileSrc, // Ruta al archivo .riv
             canvas: canvas,
             autoplay: true,
             stateMachines: "WEB MART", // Nombre de la State Machine
@@ -77,10 +77,6 @@ function handleEvent(eventName) {
 // Llamar a la función para cargar el Rive al inicio
 loadRive();
 
-// Detectar el cambio de tamaño de la ventana y cargar el archivo adecuado
-window.addEventListener("resize", () => {
-    loadRive();
-});
 // Detectar el cambio de tamaño de la ventana y cargar el archivo adecuado
 window.addEventListener("resize", () => {
     loadRive();
