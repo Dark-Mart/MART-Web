@@ -64,22 +64,22 @@ body, html {
 
     
     #youtubeButton {
-        left: 30%;   /* Ajusta este valor */
-        top: 27%;   /* Ajusta este valor */
+        left: 20%;   /* Ajusta este valor */
+        top: 25%;   /* Ajusta este valor */
     }
 
     #linkedinButton {
-        left: 70%;  /* Ajusta este valor */
-        top: 27%;   /* Ajusta este valor */
+        left: 80%;  /* Ajusta este valor */
+        top: 25%;   /* Ajusta este valor */
     }
 
     #mailButton {
-        left: 30%;  /* Ajusta este valor */
+        left: 80%;  /* Ajusta este valor */
         top: 80%;   /* Ajusta este valor */
     }
 
     #portfolioButton {
-        left: 70%;   /* Ajusta este valor */
+        left: 20%;   /* Ajusta este valor */
         top: 80%;   /* Ajusta este valor */
     }
 }
