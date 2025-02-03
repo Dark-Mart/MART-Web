@@ -13,7 +13,7 @@ body, html {
 /* Contenedor principal con aspect ratio dinámico */
 .rive-container {
     position: relative;
-    width: 90vw;
+    width: 100vw;
     max-width: 2277px;  /* Tamaño original web */
     aspect-ratio: 2277/1280;  /* Aspect ratio web por defecto */
 }
@@ -31,30 +31,30 @@ body, html {
     border: none;
     cursor: pointer;
     width: 10%;    /* 276px / 2277px */
-    height: 8%;   /* 142px / 1280px */
-    border-radius: 20%;  /* 59px / 276px */
+    height: 9%;   /* 142px / 1280px */
+    border-radius: 59%;  /* 59px / 276px */
     transform: translate(-50%, -50%);  /* Centrado preciso */
 }
 
 /* Posiciones porcentuales (calculadas sobre el tamaño original web) */
 #youtubeButton {
-    left: 33.33%;    /* 160.5px / 2277px */
-    top: 33.33%;    /* 334.5px / 1280px */
+    left: 23.33%;    /* 160.5px / 2277px */
+    top: 23.33%;    /* 334.5px / 1280px */
 }
 
 #linkedinButton {
-    left: 66.66%;   /* 561.5px / 2277px */
-    top: 33.33%;
+    left: 86.66%;   /* 561.5px / 2277px */
+    top: 23.33%;
 }
 
 #mailButton {
-    left: 66.66%;
-    top: 66.66%;    /* 1110.5px / 1280px */
+    left: 86.66%;
+    top: 86.66%;    /* 1110.5px / 1280px */
 }
 
 #portfolioButton {
-    left: 33.33%;
-    top: 66.66%;
+    left: 23.33%;
+    top: 86.66%;
 }
 
 /* Ajustes para móvil (max-width: 768px) */
