@@ -16,7 +16,7 @@ body, html {
     height: 100vh;
 }
 
-canvas {
+iframe {
     width: 100%;
     height: 100%;
 }
@@ -26,33 +26,28 @@ canvas {
     background: transparent;
     border: none;
     cursor: pointer;
+    width: 276px; /* Ancho del botón en Rive */
+    height: 142px; /* Alto del botón en Rive */
+    border-radius: 59px; /* Redondeo de bordes */
 }
 
 /* Posicionar los botones invisibles */
 #youtubeButton {
-    top: 20%; /* Ajusta según la posición del botón en Rive */
-    left: 20%; /* Ajusta según la posición del botón en Rive */
-    width: 100px; /* Ajusta según el tamaño del botón en Rive */
-    height: 50px; /* Ajusta según el tamaño del botón en Rive */
+    top: 334.5px; /* Posición Y */
+    left: 160.5px; /* Posición X */
 }
 
 #linkedinButton {
-    top: 40%; /* Ajusta según la posición del botón en Rive */
-    left: 20%; /* Ajusta según la posición del botón en Rive */
-    width: 100px; /* Ajusta según el tamaño del botón en Rive */
-    height: 50px; /* Ajusta según el tamaño del botón en Rive */
+    top: 334.5px; /* Posición Y */
+    left: 561.5px; /* Posición X */
 }
 
 #mailButton {
-    top: 60%; /* Ajusta según la posición del botón en Rive */
-    left: 20%; /* Ajusta según la posición del botón en Rive */
-    width: 100px; /* Ajusta según el tamaño del botón en Rive */
-    height: 50px; /* Ajusta según el tamaño del botón en Rive */
+    top: 1110.5px; /* Posición Y */
+    left: 561.5px; /* Posición X */
 }
 
 #portfolioButton {
-    top: 80%; /* Ajusta según la posición del botón en Rive */
-    left: 20%; /* Ajusta según la posición del botón en Rive */
-    width: 100px; /* Ajusta según el tamaño del botón en Rive */
-    height: 50px; /* Ajusta según el tamaño del botón en Rive */
+    top: 1110.5px; /* Posición Y */
+    left: 160.5px; /* Posición X */
 }
