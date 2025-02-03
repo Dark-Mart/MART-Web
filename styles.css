@@ -10,13 +10,12 @@ body, html {
     align-items: center;
 }
 
-/* Contenedor responsivo que mantiene la relación de aspecto de Rive */
+/* Contenedor principal con aspect ratio dinámico */
 .rive-container {
     position: relative;
-    width: 100vw;  /* 100% del ancho de la ventana */
-    height: 100vh; /* 100% del alto de la ventana */
-    max-width: 2277px; /* Tamaño máximo (versión web) */
-    max-height: 1280px;
+    width: 90vw;
+    max-width: 2277px;  /* Tamaño original web */
+    aspect-ratio: 2277/1280;  /* Aspect ratio web por defecto */
 }
 
 /* Iframe de Rive (se ajusta al contenedor) */
@@ -25,37 +24,46 @@ body, html {
     height: 100%;
 }
 
-/* Botones invisibles (posiciones en porcentajes relativos al contenedor) */
+/* Botones invisibles (posiciones en porcentajes relativos) */
 .invisible-button {
     position: absolute;
     background: transparent;
     border: none;
     cursor: pointer;
-    width: 12.12%;   /* 276px / 2277px = ~12.12% */
-    height: 11.09%;  /* 142px / 1280px = ~11.09% */
-    border-radius: 21.38%; /* 59px / 276px = ~21.38% */
-    transform: translate(-50%, -50%); /* Centrado preciso */
+    width: 12.12%;    /* 276px / 2277px */
+    height: 11.09%;   /* 142px / 1280px */
+    border-radius: 21.38%;  /* 59px / 276px */
+    transform: translate(-50%, -50%);  /* Centrado preciso */
 }
 
-/* Posiciones (en porcentajes relativos al contenedor) */
+/* Posiciones porcentuales (calculadas sobre el tamaño original web) */
 #youtubeButton {
-    /* X: 160.5/2277 = ~7.05%, Y: 334.5/1280 = ~26.13% */
-    left: 7.05%;
-    top: 26.13%;
+    left: 7.05%;    /* 160.5px / 2277px */
+    top: 26.13%;    /* 334.5px / 1280px */
 }
 
 #linkedinButton {
-    /* X: 561.5/2277 = ~24.66%, Y: 334.5/1280 = ~26.13% */
-    left: 24.66%;
+    left: 24.66%;   /* 561.5px / 2277px */
     top: 26.13%;
 }
 
 #mailButton {
-    /* X: 561.5/2277 = ~24.66%, Y: 1110.5/1280 = ~86.75% */
     left: 24.66%;
+    top: 86.75%;    /* 1110.5px / 1280px */
+}
+
+#portfolioButton {
+    left: 7.05%;
     top: 86.75%;
 }
 
+/* Ajustes para móvil (max-width: 768px) */
+@media (max-width: 768px) {
+    .rive-container {
+        aspect-ratio: 720/1280;  /* Aspect ratio móvil */
+        max-width: 720px;  /* Tamaño original móvil */
+    }
+}
 #portfolioButton {
     /* X: 160.5/2277 = ~7.05%, Y: 1110.5/1280 = ~86.75% */
     left: 7.05%;
