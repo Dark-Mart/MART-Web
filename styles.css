@@ -13,8 +13,8 @@ body, html {
 /* Contenedor responsivo que mantiene la relación de aspecto de Rive */
 .rive-container {
     position: relative;
-    width: 90vw;  /* 90% del ancho de la ventana */
-    height: 90vh; /* 90% del alto de la ventana */
+    width: 100vw;  /* 100% del ancho de la ventana */
+    height: 100vh; /* 100% del alto de la ventana */
     max-width: 2277px; /* Tamaño máximo (versión web) */
     max-height: 1280px;
 }
