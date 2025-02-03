@@ -1,5 +1,5 @@
 // Importar Rive desde un CDN
-import RiveCanvas from "https://unpkg.com/@rive-app/canvas-advanced@latest";
+import RiveCanvas from "https://unpkg.com/@rive-app/canvas";
 
 // Variables globales
 let riveInstance;
