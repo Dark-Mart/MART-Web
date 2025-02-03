@@ -10,44 +10,54 @@ body, html {
     align-items: center;
 }
 
-#riveContainer {
+/* Contenedor responsivo que mantiene la relación de aspecto de Rive */
+.rive-container {
     position: relative;
-    width: 100vw;
-    height: 100vh;
+    width: 90vw;  /* 90% del ancho de la ventana */
+    height: 90vh; /* 90% del alto de la ventana */
+    max-width: 2277px; /* Tamaño máximo (versión web) */
+    max-height: 1280px;
 }
 
-iframe {
+/* Iframe de Rive (se ajusta al contenedor) */
+#riveIframe {
     width: 100%;
     height: 100%;
 }
 
+/* Botones invisibles (posiciones en porcentajes relativos al contenedor) */
 .invisible-button {
     position: absolute;
     background: transparent;
     border: none;
     cursor: pointer;
-    width: 276px; /* Ancho del botón en Rive */
-    height: 142px; /* Alto del botón en Rive */
-    border-radius: 59px; /* Redondeo de bordes */
+    width: 12.12%;   /* 276px / 2277px = ~12.12% */
+    height: 11.09%;  /* 142px / 1280px = ~11.09% */
+    border-radius: 21.38%; /* 59px / 276px = ~21.38% */
+    transform: translate(-50%, -50%); /* Centrado preciso */
 }
 
-/* Posicionar los botones invisibles */
+/* Posiciones (en porcentajes relativos al contenedor) */
 #youtubeButton {
-    top: 334.5px; /* Posición Y */
-    left: 160.5px; /* Posición X */
+    /* X: 160.5/2277 = ~7.05%, Y: 334.5/1280 = ~26.13% */
+    left: 7.05%;
+    top: 26.13%;
 }
 
 #linkedinButton {
-    top: 334.5px; /* Posición Y */
-    left: 561.5px; /* Posición X */
+    /* X: 561.5/2277 = ~24.66%, Y: 334.5/1280 = ~26.13% */
+    left: 24.66%;
+    top: 26.13%;
 }
 
 #mailButton {
-    top: 1110.5px; /* Posición Y */
-    left: 561.5px; /* Posición X */
+    /* X: 561.5/2277 = ~24.66%, Y: 1110.5/1280 = ~86.75% */
+    left: 24.66%;
+    top: 86.75%;
 }
 
 #portfolioButton {
-    top: 1110.5px; /* Posición Y */
-    left: 160.5px; /* Posición X */
+    /* X: 160.5/2277 = ~7.05%, Y: 1110.5/1280 = ~86.75% */
+    left: 7.05%;
+    top: 86.75%;
 }
