@@ -38,23 +38,23 @@ body, html {
 
 /* Posiciones porcentuales (calculadas sobre el tamaño original web) */
 #youtubeButton {
-    left: 23.33%;    /* 160.5px / 2277px */
-    top: 23.33%;    /* 334.5px / 1280px */
+    left: 160.5px;    /* 160.5px / 2277px */
+    top: 334.5px;    /* 334.5px / 1280px */
 }
 
 #linkedinButton {
-    left: 86.66%;   /* 561.5px / 2277px */
-    top: 23.33%;
+    left: 561.5px;   /* 561.5px / 2277px */
+    top: 334.5px;
 }
 
 #mailButton {
-    left: 86.66%;
-    top: 86.66%;    /* 1110.5px / 1280px */
+    left: 561.5px;
+    top: 1110.5px;    /* 1110.5px / 1280px */
 }
 
 #portfolioButton {
-    left: 23.33%;
-    top: 86.66%;
+    left: 160.5px;
+    top: 1110.5px;
 }
 
 /* Ajustes para móvil (max-width: 768px) */
@@ -63,9 +63,4 @@ body, html {
         aspect-ratio: 720/1280;  /* Aspect ratio móvil */
         max-width: 720px;  /* Tamaño original móvil */
     }
-}
-#portfolioButton {
-    /* X: 160.5/2277 = ~7.05%, Y: 1110.5/1280 = ~86.75% */
-    left: 7.05%;
-    top: 86.75%;
 }
