@@ -32,28 +32,28 @@ body, html {
     cursor: pointer;
     width: 10%;    /* 276px / 2277px */
     height: 10%;   /* 142px / 1280px */
-    border-radius: 36%;  /* 59px / 276px */
+    border-radius: 40%;  /* 59px / 276px */
     transform: translate(-50%, -50%);  /* Centrado preciso */
 }
 
 /* Posiciones porcentuales (calculadas sobre el tamaño original web) */
 #youtubeButton {
-    left: 40%;    /* 160.5px / 2277px */
-    top: 30%;    /* 334.5px / 1280px */
+    left: 30%;    /* 160.5px / 2277px */
+    top: 25%;    /* 334.5px / 1280px */
 }
 
 #linkedinButton {
-    left: 65%;   /* 561.5px / 2277px */
-    top: 30%;
+    left: 69%;   /* 561.5px / 2277px */
+    top: 25%;
 }
 
 #mailButton {
-    left: 65%;
+    left: 69%;
     top: 80%;    /* 1110.5px / 1280px */
 }
 
 #portfolioButton {
-    left: 40%;
+    left: 30%;
     top: 80%;
 }
 
