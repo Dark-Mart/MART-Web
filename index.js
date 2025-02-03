@@ -1,95 +1,69 @@
-// Importar Rive desde un CDN
-import RiveCanvas from "https://unpkg.com/@rive-app/canvas";
+// URLs de los iframes de Rive
+const RIVE_WEB_URL = "https://rive.app/s/q3g7Hh2XAUGpQXoG6naMug/embed";
+const RIVE_PHONE_URL = "https://rive.app/s/vG0DebF_8UOd8TJeiEQV7Q/embed";
 
-// Variables globales
-let riveInstance;
-let stateMachine;
-let prevTimestamp = 0;
+// Obtener el iframe y el contenedor
+const riveIframe = document.getElementById("riveIframe");
+const riveContainer = document.getElementById("riveContainer");
 
-// URLs de los enlaces
-const LINKS = {
-    YouTube: "https://www.youtube.com/@Dark_MART",
-    Linkedin: "https://www.linkedin.com/in/darkmart/",
-    Mail: "mailto:atilanorush@gmail.com",
-    Portfolio: "https://www.instagram.com/alocado.mentalista/",
-};
-
-// Función para cargar el archivo Rive según el tamaño de pantalla
-async function loadRiveFile() {
+// Función para cargar el iframe correcto según el tamaño de la pantalla
+function loadRiveIframe() {
     const isMobile = window.innerWidth <= 768; // Ajusta este valor si es necesario
-    const fileSrc = isMobile ? "./mart_phone.riv" : "./mart_web.riv"; // Ruta al archivo .riv
+    const iframeUrl = isMobile ? RIVE_PHONE_URL : RIVE_WEB_URL;
 
-    // Cargar el archivo .riv
-    const response = await fetch(fileSrc);
-    const arrayBuffer = await response.arrayBuffer();
-    return arrayBuffer;
-}
+    // Cambiar la URL del iframe
+    riveIframe.src = iframeUrl;
 
-// Función principal
-async function main() {
-    // Obtener el canvas
-    const canvas = document.getElementById("riveCanvas");
-
-    // Cargar el archivo .riv
-    const bytes = await loadRiveFile();
-
-    // Inicializar Rive
-    const rive = await RiveCanvas({
-        locateFile: (file) => `https://unpkg.com/@rive-app/canvas-advanced@latest/${file}`,
-    });
-
-    // Cargar el archivo .riv en Rive
-    riveInstance = await rive.load(new Uint8Array(bytes));
-    const artboard = riveInstance.defaultArtboard();
-
-    // Obtener la State Machine
-    stateMachine = artboard.stateMachineByName("WEB MART"); // Nombre de la State Machine
-    if (!stateMachine) {
-        console.error("No se encontró la State Machine 'WEB MART'.");
-        return;
+    // Ajustar el tamaño del contenedor según el iframe
+    if (isMobile) {
+        riveContainer.style.width = "720px";
+        riveContainer.style.height = "1280px";
+    } else {
+        riveContainer.style.width = "2277px";
+        riveContainer.style.height = "1280px";
     }
-
-    console.log("Rive cargado correctamente.");
-
-    // Iniciar el bucle de renderizado
-    requestAnimationFrame(renderLoop);
 }
 
-// Bucle de renderizado
-function renderLoop(timestamp) {
-    if (!prevTimestamp) prevTimestamp = timestamp;
-    const elapsedTimeSec = (timestamp - prevTimestamp) / 1000;
+// Función para manejar eventos desde el iframe
+function handleRiveEvent(event) {
+    // Verificar si el evento proviene del iframe de Rive
+    if (event.origin !== "https://rive.app") return;
 
-    if (stateMachine) {
-        // Verificar eventos reportados
-        const numFiredEvents = stateMachine.reportedEventCount();
-        for (let i = 0; i < numFiredEvents; i++) {
-            const event = stateMachine.reportedEventAt(i);
-            console.log("Trigger detectado:", event.name);
+    // Obtener los datos del evento
+    const eventData = event.data;
+    console.log("Evento detectado:", eventData);
 
-            // Abrir el enlace correspondiente
-            if (LINKS[event.name]) {
-                console.log(`Abriendo ${event.name}...`);
-                window.open(LINKS[event.name], "_blank");
-            } else {
-                console.log("Trigger no reconocido:", event.name);
-            }
-        }
-
-        // Avanzar la State Machine
-        stateMachine.advance(elapsedTimeSec);
+    // Manejar los eventos según su nombre
+    switch (eventData.name) {
+        case "YouTube":
+            console.log("Abriendo YouTube...");
+            window.open("https://www.youtube.com/@Dark_MART", "_blank");
+            break;
+        case "Linkedin":
+            console.log("Abriendo LinkedIn...");
+            window.open("https://www.linkedin.com/in/darkmart/", "_blank");
+            break;
+        case "Mail":
+            console.log("Abriendo correo...");
+            window.location.href = "mailto:atilanorush@gmail.com";
+            break;
+        case "Portfolio":
+            console.log("Abriendo Instagram...");
+            window.open("https://www.instagram.com/alocado.mentalista/", "_blank");
+            break;
+        default:
+            console.log("Evento no reconocido:", eventData.name);
+            break;
     }
-
-    prevTimestamp = timestamp;
-    requestAnimationFrame(renderLoop);
 }
 
-// Iniciar la aplicación
-main();
+// Escuchar eventos desde el iframe
+window.addEventListener("message", handleRiveEvent);
 
-// Redimensionar el canvas si la ventana cambia de tamaño
+// Cargar el iframe correcto al inicio
+loadRiveIframe();
+
+// Cambiar el iframe si la ventana cambia de tamaño
 window.addEventListener("resize", () => {
-    if (riveInstance) {
-        riveInstance.resizeDrawingSurfaceToCanvas();
-    }
+    loadRiveIframe();
 });
