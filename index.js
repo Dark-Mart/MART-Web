@@ -31,41 +31,30 @@ function loadRiveIframe() {
     }
 }
 
-// Función para manejar eventos desde el iframe
-function handleRiveEvent(event) {
-    // Verificar si el evento proviene del iframe de Rive
-    if (event.origin !== "https://rive.app") return;
+// URLs de los enlaces
+const LINKS = {
+    YouTube: "https://www.youtube.com/@Dark_MART",
+    Linkedin: "https://www.linkedin.com/in/darkmart/",
+    Mail: "mailto:atilanorush@gmail.com",
+    Portfolio: "https://www.instagram.com/alocado.mentalista/",
+};
 
-    // Obtener los datos del evento
-    const eventData = event.data;
-    console.log("Evento detectado:", eventData);
+// Manejar clics en los botones invisibles
+document.getElementById("youtubeButton").addEventListener("click", () => {
+    window.open(LINKS.YouTube, "_blank");
+});
 
-    // Manejar los eventos según su nombre
-    switch (eventData.name) {
-        case "YouTube":
-            console.log("Abriendo YouTube...");
-            window.open("https://www.youtube.com/@Dark_MART", "_blank");
-            break;
-        case "Linkedin":
-            console.log("Abriendo LinkedIn...");
-            window.open("https://www.linkedin.com/in/darkmart/", "_blank");
-            break;
-        case "Mail":
-            console.log("Abriendo correo...");
-            window.location.href = "mailto:atilanorush@gmail.com";
-            break;
-        case "Portfolio":
-            console.log("Abriendo Instagram...");
-            window.open("https://www.instagram.com/alocado.mentalista/", "_blank");
-            break;
-        default:
-            console.log("Evento no reconocido:", eventData.name);
-            break;
-    }
-}
+document.getElementById("linkedinButton").addEventListener("click", () => {
+    window.open(LINKS.Linkedin, "_blank");
+});
 
-// Escuchar eventos desde el iframe
-window.addEventListener("message", handleRiveEvent);
+document.getElementById("mailButton").addEventListener("click", () => {
+    window.location.href = LINKS.Mail;
+});
+
+document.getElementById("portfolioButton").addEventListener("click", () => {
+    window.open(LINKS.Portfolio, "_blank");
+});
 
 // Cargar el iframe correcto al inicio
 loadRiveIframe();
