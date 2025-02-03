@@ -75,11 +75,11 @@ body, html {
 
     #mailButton {
         left: 80%;  /* Ajusta este valor */
-        top: 80%;   /* Ajusta este valor */
+        top: 86%;   /* Ajusta este valor */
     }
 
     #portfolioButton {
         left: 22%;   /* Ajusta este valor */
-        top: 80%;   /* Ajusta este valor */
+        top: 86%;   /* Ajusta este valor */
     }
 }
