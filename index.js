@@ -1,6 +1,6 @@
 // URLs actualizadas de Rive (web y móvil)
-const RIVE_WEB_URL = "https://rive.app/s/a9eScgpCCUS1V3Q7q5tCGw/embed";
-const RIVE_PHONE_URL = "https://rive.app/s/1SzOE6KBLU_Kwm1lFLAGVg/embed";
+const RIVE_WEB_URL = "https://rive.app/s/OfUb9CLaOEKq2o4aju6U4A/embed";
+const RIVE_PHONE_URL = "https://rive.app/s/n5VthfWadk2vi7Hfc9LIdw/embed";
 
 // Elementos del DOM
 const riveIframe = document.getElementById("riveIframe");
