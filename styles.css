@@ -56,11 +56,30 @@ body, html {
     left: 30%;
     top: 80%;
 }
-
-/* Ajustes para móvil (max-width: 768px) */
 @media (max-width: 768px) {
     .rive-container {
-        aspect-ratio: 720/1280;  /* Aspect ratio móvil */
-        max-width: 720px;  /* Tamaño original móvil */
+        aspect-ratio: 720/1280;
+        max-width: 720px;
+    }
+
+    
+    #youtubeButton {
+        left: 30%;   /* Ajusta este valor */
+        top: 27%;   /* Ajusta este valor */
+    }
+
+    #linkedinButton {
+        left: 70%;  /* Ajusta este valor */
+        top: 27%;   /* Ajusta este valor */
+    }
+
+    #mailButton {
+        left: 30%;  /* Ajusta este valor */
+        top: 80%;   /* Ajusta este valor */
+    }
+
+    #portfolioButton {
+        left: 70%;   /* Ajusta este valor */
+        top: 80%;   /* Ajusta este valor */
     }
 }
