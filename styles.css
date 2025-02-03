@@ -38,23 +38,23 @@ body, html {
 
 /* Posiciones porcentuales (calculadas sobre el tamaño original web) */
 #youtubeButton {
-    left: 20%;    /* 160.5px / 2277px */
-    top: 20%;    /* 334.5px / 1280px */
+    left: 30%;    /* 160.5px / 2277px */
+    top: 25%;    /* 334.5px / 1280px */
 }
 
 #linkedinButton {
-    left: 70%;   /* 561.5px / 2277px */
-    top: 20%;
+    left: 69%;   /* 561.5px / 2277px */
+    top: 25%;
 }
 
 #mailButton {
-    left: 70%;
-    top: 70%;    /* 1110.5px / 1280px */
+    left: 69%;
+    top: 80%;    /* 1110.5px / 1280px */
 }
 
 #portfolioButton {
-    left: 20%;
-    top: 70%;
+    left: 30%;
+    top: 80%;
 }
 
 /* Ajustes para móvil (max-width: 768px) */
