@@ -56,21 +56,21 @@ body, html {
     left: 30%;
     top: 80%;
 }
+
 @media (max-width: 768px) {
     .rive-container {
         aspect-ratio: 720/1280;
         max-width: 720px;
     }
-
     
     #youtubeButton {
-        left: 20%;   /* Ajusta este valor */
-        top: 25%;   /* Ajusta este valor */
+        left: 22%;   /* Ajusta este valor */
+        top: 26%;   /* Ajusta este valor */
     }
 
     #linkedinButton {
         left: 80%;  /* Ajusta este valor */
-        top: 25%;   /* Ajusta este valor */
+        top: 26%;   /* Ajusta este valor */
     }
 
     #mailButton {
@@ -79,7 +79,7 @@ body, html {
     }
 
     #portfolioButton {
-        left: 20%;   /* Ajusta este valor */
+        left: 22%;   /* Ajusta este valor */
         top: 80%;   /* Ajusta este valor */
     }
 }
