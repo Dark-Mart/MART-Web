@@ -38,22 +38,22 @@ body, html {
 
 /* Posiciones porcentuales (calculadas sobre el tamaño original web) */
 #youtubeButton {
-    left: 30%;    /* 160.5px / 2277px */
-    top: 25%;    /* 334.5px / 1280px */
+    left: 40%;    /* 160.5px / 2277px */
+    top: 30%;    /* 334.5px / 1280px */
 }
 
 #linkedinButton {
-    left: 69%;   /* 561.5px / 2277px */
-    top: 25%;
+    left: 65%;   /* 561.5px / 2277px */
+    top: 30%;
 }
 
 #mailButton {
-    left: 69%;
+    left: 65%;
     top: 80%;    /* 1110.5px / 1280px */
 }
 
 #portfolioButton {
-    left: 30%;
+    left: 40%;
     top: 80%;
 }
 
