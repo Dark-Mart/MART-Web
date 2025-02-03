@@ -39,12 +39,12 @@ body, html {
 /* Posiciones porcentuales (calculadas sobre el tamaño original web) */
 #youtubeButton {
     left: 30%;    
-    top: 25%;    
+    top: 27%;    
 }
 
 #linkedinButton {
     left: 70%;   
-    top: 25%;
+    top: 27%;
 }
 
 #mailButton {
