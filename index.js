@@ -1,4 +1,4 @@
-// URLs de Rive (actualizadas)
+// URLs actualizadas de Rive (web y móvil)
 const RIVE_WEB_URL = "https://rive.app/s/a9eScgpCCUS1V3Q7q5tCGw/embed";
 const RIVE_PHONE_URL = "https://rive.app/s/1SzOE6KBLU_Kwm1lFLAGVg/embed";
 
@@ -6,16 +6,22 @@ const RIVE_PHONE_URL = "https://rive.app/s/1SzOE6KBLU_Kwm1lFLAGVg/embed";
 const riveIframe = document.getElementById("riveIframe");
 const riveContainer = document.querySelector(".rive-container");
 
-// Función para cargar el iframe correcto
+// Función para cargar el iframe correcto y ajustar aspect ratio
 function loadRiveIframe() {
     const isMobile = window.innerWidth <= 768;
     riveIframe.src = isMobile ? RIVE_PHONE_URL : RIVE_WEB_URL;
+
+    // Ajustar aspect ratio dinámicamente
+    if (isMobile) {
+        riveContainer.style.aspectRatio = "720/1280";
+    } else {
+        riveContainer.style.aspectRatio = "2277/1280";
+    }
 }
 
-// Manejar clics en los botones
+// Manejadores de clic para los botones
 document.querySelectorAll(".invisible-button").forEach(button => {
     button.addEventListener("click", (e) => {
-        e.stopPropagation(); // Evitar interferencias
         const id = e.target.id;
         switch(id) {
             case "youtubeButton":
@@ -34,6 +40,6 @@ document.querySelectorAll(".invisible-button").forEach(button => {
     });
 });
 
-// Inicialización
+// Inicialización y eventos
 loadRiveIframe();
 window.addEventListener("resize", loadRiveIframe);
